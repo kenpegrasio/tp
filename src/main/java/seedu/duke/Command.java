@@ -1,5 +1,4 @@
 package seedu.duke;
 
-public class Command {
-	private String Command;
+public class Command { private String Command;
 }
