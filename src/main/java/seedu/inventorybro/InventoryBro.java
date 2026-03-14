@@ -12,8 +12,7 @@ public class InventoryBro {
         Scanner in = new Scanner(System.in);
         ItemList items = new ItemList();
 
-        while (true) {
-            System.out.println("Enter something:");
+        while (in.hasNextLine() {
             String input = in.nextLine();
             Parser.parse(input, items);
         }
