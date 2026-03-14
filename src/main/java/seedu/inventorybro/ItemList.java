@@ -4,7 +4,7 @@ package seedu.inventorybro;
 import java.util.ArrayList;
 
 /**
- * Manages the list of tasks, providing operations to add, delete, mark, and retrieve tasks.
+ * Manages the list of items, providing operations to add and delete items.
  */
 public class ItemList {
     private final ArrayList<Item> items;
@@ -17,9 +17,9 @@ public class ItemList {
     }
 
     /**
-     * Creates a task list pre-populated with the given tasks.
+     * Creates an item list pre-populated with the given items.
      *
-     * @param items An existing list of tasks to manage.
+     * @param items An existing list of items to manage.
      */
     public ItemList(ArrayList<Item> items) {
         this.items = items;
@@ -35,10 +35,10 @@ public class ItemList {
     }
 
     /**
-     * Removes and returns the task at the given index.
+     * Removes and returns the item at the given index.
      *
-     * @param index Zero-based index of the task to delete.
-     * @return The removed task.
+     * @param index Zero-based index of the item to delete.
+     * @return The removed item.
      */
     public Item deleteItem(int index) {
         return items.remove(index);
@@ -49,7 +49,7 @@ public class ItemList {
      * Returns the item at the given index.
      *
      * @param index Zero-based index of the item.
-     * @return The task at that item.
+     * @return The item at that index.
      */
     public Item getItem(int index) {
         return items.get(index);
@@ -65,7 +65,7 @@ public class ItemList {
     }
 
     /**
-     * Returns true if there are no tasks in the list.
+     * Returns true if there are no items in the list.
      *
      * @return True if empty, false otherwise.
      */
@@ -74,7 +74,7 @@ public class ItemList {
     }
 
     /**
-     * *Returns the underlying ArrayList of tasks.
+     * *Returns the underlying ArrayList of items.
      *
      * @return The item list.
      */

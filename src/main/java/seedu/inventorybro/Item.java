@@ -1,16 +1,17 @@
 package seedu.inventorybro;
 
 /**
- * Represents a task with a description and completion status.
+ * Represents an item with a description and quantity.
  */
 public class Item {
     protected String description;
     protected int quantity;
 
     /**
-     * Creates a task with the given description, marked as not done.
+     * Creates an item with the given description and quantity.
      *
-     * @param description The task description.
+     * @param description The item description.
+     * @param quantity    The quantity of item.
      */
     public Item(String description, int quantity) {
         this.description = description;
@@ -18,25 +19,26 @@ public class Item {
     }
 
     /**
-     * set this item quantity.
+     * Set this item quantity.
+     *
+     * @param quantity The quantity of item.
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
     /**
-     * Returns the status icon for display.
+     * Returns the quantity of item.
      *
-     * @return "X" if done, " " if not done.
+     * @return The quantity of item.
      */
     public int getQuantity() {
         return this.quantity;
     }
 
 
-
     /**
-     * Returns the task in save file format.
+     * Returns the item in save file format.
      *
      * @return A string formatted for writing to the save file.
      */
@@ -45,7 +47,7 @@ public class Item {
     }
 
     /**
-     * Returns the task description.
+     * Returns the item description.
      *
      * @return The description string.
      */
@@ -53,9 +55,14 @@ public class Item {
         return description;
     }
 
+    /**
+     * Returns the string of the item's description and quantity.
+     *
+     * @return The string format of the item's description and quantity.
+     */
     @Override
     public String toString() {
-        return "[" + getQuantity() + "] " + description;
+        return description + "(Quantity: " + quantity + ")";
     }
 }
 

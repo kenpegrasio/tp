@@ -3,7 +3,7 @@ package seedu.inventorybro;
 public class Parser {
     public static void parse(String line, ItemList items) {
         if (line.equalsIgnoreCase("list")) {
-            parseList(line, items);
+            parseList(items);
             return;
         }
 
@@ -21,7 +21,7 @@ public class Parser {
             parseAdd(line, items);
             return;
         }
-        System.out.println("Invalid command, please try bye, list, , todo, event, deadline, delete");
+        System.out.println("Invalid command, please try add, delete, edit, transact, list, exit");
 
     }
 
@@ -88,7 +88,16 @@ public class Parser {
         checkIfDigit(digits.substring(start));
     }
 
-    private static void parseList(String text, ItemList items) {
+    private static void parseList(ItemList items) {
+        if (items.isEmpty()) {
+            System.out.println("Your inventory is empty.");
+        }
+
+        System.out.println("Here are your current inventory items:");
+        for (int i = 0; i < items.size(); i++) {
+            int listIndex = i + 1;
+            System.out.println((listIndex) + ". " + items.getItem(i).toString());
+        }
     }
 
     private static void parseDelete(String text, ItemList items) {
