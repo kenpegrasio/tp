@@ -40,4 +40,84 @@ class ParserTest {
             () -> Parser.parseAdd("addItem Apple 10", items)
         );
     }
+
+    @Test
+    void transact_validSale_quantityDecreased() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Coke Can", 50));
+
+        Parser.parse("transact 1 q/-5", items);
+
+        assertEquals(45, items.getItem(0).getQuantity());
+    }
+
+    @Test
+    void transact_validRestock_quantityIncreased() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Sprite Bottle", 30));
+
+        Parser.parse("transact 1 q/10", items);
+
+        assertEquals(40, items.getItem(0).getQuantity());
+    }
+
+    @Test
+    void transact_exactDepletion_quantityBecomesZero() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Coke Can", 50));
+
+        Parser.parse("transact 1 q/-50", items);
+
+        assertEquals(0, items.getItem(0).getQuantity());
+    }
+
+    @Test
+    void transact_quantityBelowZero_quantityUnchanged() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Coke Can", 50));
+
+        // selling more than available should be rejected
+        Parser.parse("transact 1 q/-999", items);
+
+        assertEquals(50, items.getItem(0).getQuantity());
+    }
+
+    @Test
+    void transact_invalidIndex_quantityUnchanged() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Coke Can", 50));
+
+        // index 99 does not exist
+        Parser.parse("transact 99 q/10", items);
+
+        assertEquals(50, items.getItem(0).getQuantity());
+    }
+
+    @Test
+    void transact_invalidInputFormats_quantityUnchanged() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Coke Can", 50));
+
+        Parser.parse("transact 1 10", items);         // missing q/
+        assertEquals(50, items.getItem(0).getQuantity());
+
+        Parser.parse("transact abc q/10", items);     // non-digit index
+        assertEquals(50, items.getItem(0).getQuantity());
+
+        Parser.parse("transact 1 q/-", items);        // just minus sign
+        assertEquals(50, items.getItem(0).getQuantity());
+
+        Parser.parse("transact 1 q/abc", items);      // non-digit quantity
+        assertEquals(50, items.getItem(0).getQuantity());
+    }
+
+    @Test
+    void transact_zeroChange_quantityUnchanged() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Coke Can", 50));
+
+        Parser.parse("transact 1 q/0", items);
+
+        assertEquals(50, items.getItem(0).getQuantity());
+    }
 }
