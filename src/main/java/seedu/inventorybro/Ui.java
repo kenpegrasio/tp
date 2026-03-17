@@ -1,5 +1,6 @@
 package seedu.inventorybro;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Ui {
@@ -20,7 +21,7 @@ public class Ui {
         System.out.println("--------------------------------------------------");
     }
 
-    public String readCommand() {
+    public String readCommand() throws NoSuchElementException {
         System.out.print("> ");
         return in.nextLine().trim();
     }
