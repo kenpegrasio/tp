@@ -21,19 +21,19 @@ public class InventoryBro {
                 break;
             }
             switch (ch) {
-                case '\r':
-                    break;
-                case -1: // EOF
-                case '\n': {
-                    Parser.parse(currentCommand, items);
-                    System.out.println("Command received: " + currentCommand);
-                    currentCommand = new String();
-                    return;
-                }
-                default: {
-                    currentCommand += (char) ch;
-                    break;
-                }
+            case '\r':
+                break;
+            case -1: // EOF
+            case '\n': {
+                Parser.parse(currentCommand, items);
+                System.out.println("Command received: " + currentCommand);
+                currentCommand = new String();
+                return;
+            }
+            default: {
+                currentCommand += (char) ch;
+                break;
+            }
             }
         }
     }
