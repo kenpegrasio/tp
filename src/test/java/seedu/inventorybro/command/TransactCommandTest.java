@@ -1,6 +1,7 @@
 package seedu.inventorybro.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -60,8 +61,10 @@ class TransactCommandTest {
         ItemList items = new ItemList();
         items.addItem(new Item("Coke Can", 50));
 
-        new TransactCommand("transact 1 q/-999").execute(items, ui);
-
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new TransactCommand("transact 1 q/-999").execute(items, ui)
+        );
         assertEquals(50, items.getItem(0).getQuantity());
     }
 
@@ -73,8 +76,10 @@ class TransactCommandTest {
         ItemList items = new ItemList();
         items.addItem(new Item("Coke Can", 50));
 
-        new TransactCommand("transact 99 q/10").execute(items, ui);
-
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new TransactCommand("transact 99 q/10").execute(items, ui)
+        );
         assertEquals(50, items.getItem(0).getQuantity());
     }
 
@@ -86,16 +91,28 @@ class TransactCommandTest {
         ItemList items = new ItemList();
         items.addItem(new Item("Coke Can", 50));
 
-        new TransactCommand("transact 1 10").execute(items, ui);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new TransactCommand("transact 1 10").execute(items, ui)
+        );
         assertEquals(50, items.getItem(0).getQuantity());
 
-        new TransactCommand("transact abc q/10").execute(items, ui);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new TransactCommand("transact abc q/10").execute(items, ui)
+        );
         assertEquals(50, items.getItem(0).getQuantity());
 
-        new TransactCommand("transact 1 q/-").execute(items, ui);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new TransactCommand("transact 1 q/-").execute(items, ui)
+        );
         assertEquals(50, items.getItem(0).getQuantity());
 
-        new TransactCommand("transact 1 q/abc").execute(items, ui);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new TransactCommand("transact 1 q/abc").execute(items, ui)
+        );
         assertEquals(50, items.getItem(0).getQuantity());
     }
 
