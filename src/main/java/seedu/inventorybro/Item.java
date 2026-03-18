@@ -24,6 +24,7 @@ public class Item {
      * @param quantity The quantity of item.
      */
     public void setQuantity(int quantity) {
+        assert quantity >= 0 : "Quantity should not be negative: " + quantity;
         this.quantity = quantity;
     }
 
