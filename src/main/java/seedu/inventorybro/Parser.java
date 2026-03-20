@@ -140,8 +140,8 @@ public class Parser {
             // Format: edit INDEX d/NEW_NAME q/NEW_QUANTITY
             String[] words = text.split(" ", 2);
             if (words.length < 2) {
-                throw new IllegalArgumentException("Invalid edit format. " +
-                        "Use: edit INDEX d/NEW_NAME q/NEW_QUANTITY");
+                throw new IllegalArgumentException("Invalid editItem format. " +
+                        "Use: editItem INDEX d/NEW_NAME q/NEW_QUANTITY");
             }
 
             String[] parts = words[1].split("d/", 2);
