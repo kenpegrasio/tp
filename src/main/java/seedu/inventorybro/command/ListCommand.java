@@ -23,6 +23,7 @@ public class ListCommand implements Command {
      * Validates the list command input and prints all items in the inventory.
      *
      * @param items The inventory item list to display.
+     * @param ui The ui object.
      */
     @Override
     public void execute(ItemList items, Ui ui) {
