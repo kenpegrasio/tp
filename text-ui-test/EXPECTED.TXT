@@ -9,16 +9,16 @@ ERROR: Invalid addItem format! Use: addItem d/NAME q/INITIAL_QUANTITY
 ERROR: Invalid addItem format! Use: addItem d/NAME q/INITIAL_QUANTITY
 --------------------------------------------------
 > --------------------------------------------------
-Added: apples (Quantity: 233)
+Added: apples (Quantity: 233, Price: $0.00)
 --------------------------------------------------
 > --------------------------------------------------
-Added: oranges (Quantity: 42)
+Added: oranges (Quantity: 42, Price: $0.00)
 --------------------------------------------------
 > --------------------------------------------------
-Added: mangoes (Quantity: 53)
+Added: mangoes (Quantity: 53, Price: $0.00)
 --------------------------------------------------
 > --------------------------------------------------
-Added: bananas (Quantity: 65)
+Added: bananas (Quantity: 65, Price: $0.00)
 --------------------------------------------------
 > --------------------------------------------------
 ERROR: Did you mean 'listItems'?
@@ -31,10 +31,10 @@ ERROR: Did you mean 'listItems'?
 --------------------------------------------------
 > --------------------------------------------------
 Here are your current inventory items:
-1. apples (Quantity: 233)
-2. oranges (Quantity: 42)
-3. mangoes (Quantity: 53)
-4. bananas (Quantity: 65)
+1. apples (Quantity: 233, Price: $0.00)
+2. oranges (Quantity: 42, Price: $0.00)
+3. mangoes (Quantity: 53, Price: $0.00)
+4. bananas (Quantity: 65, Price: $0.00)
 --------------------------------------------------
 > --------------------------------------------------
 ERROR: Invalid delete format! Use: deleteItem INDEX
@@ -50,7 +50,7 @@ ERROR: The index must be a number! Use: deleteItem INDEX
 --------------------------------------------------
 > --------------------------------------------------
 Noted, BRO. I've removed this item:
-  mangoes (Quantity: 53)
+  mangoes (Quantity: 53, Price: $0.00)
 Now you have 3 items in the list.
 --------------------------------------------------
 > --------------------------------------------------
@@ -63,7 +63,7 @@ ERROR: Invalid index.
 ERROR: Index and quantity must be numbers.
 --------------------------------------------------
 > --------------------------------------------------
-Item updated: newName (Quantity: 39)
+Item updated: newName (Quantity: 39, Price: $0.00)
 --------------------------------------------------
 > --------------------------------------------------
 ERROR: Invalid transact format. Use: transact INDEX q/CHANGE_IN_QUANTITY
