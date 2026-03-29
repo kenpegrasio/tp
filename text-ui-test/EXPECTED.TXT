@@ -191,7 +191,7 @@ be specified to display a more detailed instruction of it. You can use 'help' to
 the valid name of the command, and specify that command to view further details of
 it.
 
-Example usage:-
+Example usages:-
 (Without specifying a command): help
 This displays each command name and their summaries.
 
