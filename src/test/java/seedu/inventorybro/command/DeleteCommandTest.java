@@ -9,7 +9,6 @@ import seedu.inventorybro.Item;
 import seedu.inventorybro.ItemList;
 import seedu.inventorybro.Ui;
 
-
 /**
  * Tests for {@link DeleteCommand}.
  */

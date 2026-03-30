@@ -56,6 +56,7 @@ public class FindCommand implements Command {
         }
 
         if (!isFound) {
-            ui.showMessage("No matching items found for: " + matcher.group(1).trim());        }
+            ui.showMessage("No matching items found for: " + matcher.group(1).trim());
+        }
     }
 }
