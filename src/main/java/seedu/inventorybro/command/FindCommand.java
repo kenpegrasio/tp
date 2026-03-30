@@ -44,14 +44,16 @@ public class FindCommand implements Command {
         String keyword = matcher.group(1).trim().toLowerCase();
         boolean isFound = false;
 
-        ui.showMessage("Here are the matching items in your inventory:");
 
         for (int i = 0; i < items.size(); i++) {
             Item item = items.getItem(i);
 
             if (item.getDescription().toLowerCase().contains(keyword)) {
+                if (!isFound) {
+                    ui.showMessage("Here are the matching items in your inventory:");
+                    isFound = true;
+                }
                 ui.showMessage((i + 1) + ". " + item);
-                isFound = true;
             }
         }
 
