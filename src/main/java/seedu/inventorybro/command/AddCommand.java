@@ -18,9 +18,10 @@ public class AddCommand implements Command {
     private final String input;
 
     /**
-     * Creates an add command from the raw user input.
+     * Creates an add command bound to the given raw user input.
      *
-     * @param input The full add command string.
+     * @param input The full command string, expected to match
+     *              {@code addItem d/NAME q/INITIAL_QUANTITY}.
      */
     public AddCommand(String input) {
         assert input != null : "Input should not be null";
@@ -28,9 +29,11 @@ public class AddCommand implements Command {
     }
 
     /**
-     * Parses the add command input and appends the new item to the list.
+     * Validates the input, then creates a new {@link Item} and appends it to the inventory.
      *
-     * @param items The inventory item list to update.
+     * @param items The inventory item list to append the new item to.
+     * @param ui    The UI object used to display the confirmation message.
+     * @throws IllegalArgumentException if the input does not match the expected format.
      */
     @Override
     public void execute(ItemList items, Ui ui) {
