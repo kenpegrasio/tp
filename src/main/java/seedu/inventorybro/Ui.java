@@ -59,12 +59,10 @@ public class Ui {
 
     private Terminal buildTerminal() {
         try {
-            Terminal t = TerminalBuilder.builder().system(true).build();
-            if ("dumb".equals(t.getType())) {
-                t.close();
-                return TerminalBuilder.builder().streams(System.in, System.err).build();
+            if (System.console() != null) {
+                return TerminalBuilder.builder().system(true).build();
             }
-            return t;
+            return TerminalBuilder.builder().streams(System.in, System.err).build();
         } catch (IOException e) {
             throw new RuntimeException("Failed to initialise terminal", e);
         }
