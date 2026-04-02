@@ -344,7 +344,7 @@ Has basic familiarity with using a computer terminal
 May not have access to complex inventory management systems
 
 
-### Value proposition
+**Implementation:** `EditCommand` parses the input in the format `edit INDEX d/NEW_NAME q/NEW_QUANTITY`. It retrieves the item at the given index from `ItemList`, then calls `setDescription()` and `setQuantity()` on it.
 
 InventoryBRO provides a lightweight and efficient CLI-based inventory management system that allows users to:
 
