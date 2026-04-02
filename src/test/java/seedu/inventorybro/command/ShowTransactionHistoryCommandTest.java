@@ -33,7 +33,7 @@ class ShowTransactionHistoryCommandTest {
      * Verifies empty history case.
      */
     @Test
-    void executeValidCommandEmptyHistoryShowsEmptyMessage() {
+    void execute_validCommand_emptyHistoryShowsEmptyMessage() {
         TransactionStorageStub stub =
                 new TransactionStorageStub(new ArrayList<>());
 
@@ -47,7 +47,7 @@ class ShowTransactionHistoryCommandTest {
      * Verifies single entry case.
      */
     @Test
-    void executeValidCommandOneEntryDisplaysEntry() {
+    void execute_validCommand_oneEntryDisplaysEntry() {
         ArrayList<String> entries = new ArrayList<>();
         entries.add("Coke Can | -5 | 2026-03-26 14:30");
 
@@ -63,7 +63,7 @@ class ShowTransactionHistoryCommandTest {
      * Verifies multiple entries case.
      */
     @Test
-    void executeValidCommandMultipleEntriesDisplaysAll() {
+    void execute_validCommand_multipleEntriesDisplaysAll() {
         ArrayList<String> entries = new ArrayList<>();
         entries.add("Coke Can | -5 | 2026-03-26 14:30");
         entries.add("Sprite Bottle | 10 | 2026-03-26 14:31");
