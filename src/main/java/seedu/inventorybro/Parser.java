@@ -11,6 +11,7 @@ import seedu.inventorybro.command.FilterCommand;
 import seedu.inventorybro.command.HelpCommand;
 import seedu.inventorybro.command.ListCommand;
 import seedu.inventorybro.command.TransactCommand;
+import seedu.inventorybro.command.ShowTransactionHistoryCommand;
 import seedu.inventorybro.command.FindCommand;
 
 public class Parser {
@@ -45,6 +46,8 @@ public class Parser {
             return new TransactCommand(trimmedLine);
         case "filteritem":
             return new FilterCommand(trimmedLine);
+        case "showhistory":
+            return new ShowTransactionHistoryCommand(trimmedLine);
         case "listitems":
             return new ListCommand(trimmedLine);
         case "finditem":
@@ -64,7 +67,8 @@ public class Parser {
         if (suggestion.isPresent()) {
             ui.showMessage("Do you mean " + suggestion.get() + "?");
         } else {
-            ui.showError("Invalid command, please try addItem, deleteItem, editItem, transact, listItems, help, exit");
+            ui.showError("Invalid command, please try addItem, deleteItem, editItem, transact, " +
+                    "showHistory, listItems, help, exit");
         }
     }
 

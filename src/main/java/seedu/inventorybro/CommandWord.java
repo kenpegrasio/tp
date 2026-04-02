@@ -11,6 +11,7 @@ public enum CommandWord {
     DELETE_ITEM("deleteItem"),
     EDIT_ITEM("editItem"),
     TRANSACT("transact"),
+    SHOW_HISTORY("showHistory"),
     LIST_ITEMS("listItems"),
     HELP("help"),
     EXIT("exit"),
