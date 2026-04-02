@@ -1,0 +1,13 @@
+@startuml
+class seedu.inventorybro.command.TransactCommand {
+- {static} Logger logger
+- String input
+- TransactionStorage transactionStorage
++ void execute(ItemList,Ui)
+}
+
+
+
+
+seedu.inventorybro.command.Command <|.. seedu.inventorybro.command.TransactCommand
+@enduml
