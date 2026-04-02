@@ -1,37 +1,116 @@
 package seedu.inventorybro.command;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.inventorybro.ItemList;
 import seedu.inventorybro.Ui;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import seedu.inventorybro.storage.TransactionStorageStub;
 
 //@@author elliotjohnwu
-public class ShowTransactionHistoryCommandTest {
+/**
+ * Tests for {@link ShowTransactionHistoryCommand} using a stubbed storage.
+ */
+class ShowTransactionHistoryCommandTest {
 
+    private ItemList items;
+    private Ui ui;
+
+    @BeforeEach
+    void setUp() {
+        items = new ItemList();
+        ui = new Ui();
+    }
+
+
+
+    /**
+     * Verifies empty history case.
+     */
     @Test
-    public void execute_validCommand_noCrash() {
-        ShowTransactionHistoryCommand command =
-                new ShowTransactionHistoryCommand("showHistory");
+    void executeValidCommandEmptyHistoryShowsEmptyMessage() {
+        TransactionStorageStub stub =
+                new TransactionStorageStub(new ArrayList<>());
 
-        Ui ui = new Ui();
-        ItemList items = new ItemList();
+        ShowTransactionHistoryCommand command =
+                new ShowTransactionHistoryCommand("showHistory", stub);
 
         assertDoesNotThrow(() -> command.execute(items, ui));
     }
 
+    /**
+     * Verifies single entry case.
+     */
     @Test
-    public void execute_invalidCommand_throwsException() {
+    void executeValidCommandOneEntryDisplaysEntry() {
+        ArrayList<String> entries = new ArrayList<>();
+        entries.add("Coke Can | -5 | 2026-03-26 14:30");
+
+        TransactionStorageStub stub = new TransactionStorageStub(entries);
+
         ShowTransactionHistoryCommand command =
-                new ShowTransactionHistoryCommand("showHistory extra");
+                new ShowTransactionHistoryCommand("showHistory", stub);
 
-        Ui ui = new Ui();
-        ItemList items = new ItemList();
+        assertDoesNotThrow(() -> command.execute(items, ui));
+    }
 
-        try {
-            command.execute(items, ui);
-        } catch (IllegalArgumentException e) {
-            assert e.getMessage().contains("showHistory");
-        }
+    /**
+     * Verifies multiple entries case.
+     */
+    @Test
+    void executeValidCommandMultipleEntriesDisplaysAll() {
+        ArrayList<String> entries = new ArrayList<>();
+        entries.add("Coke Can | -5 | 2026-03-26 14:30");
+        entries.add("Sprite Bottle | 10 | 2026-03-26 14:31");
+        entries.add("Fanta | -3 | 2026-03-26 14:32");
+
+        TransactionStorageStub stub = new TransactionStorageStub(entries);
+
+        ShowTransactionHistoryCommand command =
+                new ShowTransactionHistoryCommand("showHistory", stub);
+
+        assertDoesNotThrow(() -> command.execute(items, ui));
+    }
+
+
+    @Test
+    void execute_extraArguments_throwsException() {
+        ShowTransactionHistoryCommand command =
+                new ShowTransactionHistoryCommand(
+                        "showHistory extra",
+                        new TransactionStorageStub(new ArrayList<>())
+                );
+
+        assertThrows(IllegalArgumentException.class,
+                () -> command.execute(items, ui));
+    }
+
+    @Test
+    void execute_wrongCommandWord_throwsException() {
+        ShowTransactionHistoryCommand command =
+                new ShowTransactionHistoryCommand(
+                        "history",
+                        new TransactionStorageStub(new ArrayList<>())
+                );
+
+        assertThrows(IllegalArgumentException.class,
+                () -> command.execute(items, ui));
+    }
+
+    @Test
+    void execute_wrongCase_throwsException() {
+        ShowTransactionHistoryCommand command =
+                new ShowTransactionHistoryCommand(
+                        "ShowHistory",
+                        new TransactionStorageStub(new ArrayList<>())
+                );
+
+        assertThrows(IllegalArgumentException.class,
+                () -> command.execute(items, ui));
     }
 }
