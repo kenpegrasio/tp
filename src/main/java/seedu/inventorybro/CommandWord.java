@@ -1,5 +1,6 @@
 package seedu.inventorybro;
 
+//@@author kenpegrasio
 /**
  * Enumeration of all valid command keywords recognised by the application.
  * This is the single source of truth for command names — add new commands here
@@ -10,10 +11,12 @@ public enum CommandWord {
     DELETE_ITEM("deleteItem"),
     EDIT_ITEM("editItem"),
     TRANSACT("transact"),
+    SHOW_HISTORY("showHistory"),
     LIST_ITEMS("listItems"),
     HELP("help"),
     EXIT("exit"),
-    FIND_ITEM("findItem");
+    FIND_ITEM("findItem"),
+    FILTER_ITEM("filterItem");
 
     private final String word;
 

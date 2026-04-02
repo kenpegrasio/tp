@@ -18,15 +18,23 @@ deleteItem 0
 deleteItem 23
 deleteItem s
 deleteItem 3
-edit
-edit 90 d/newName q/newQ p/9.99
-edit 2 d/newName q/newQ p/9.99
-edit 2 d/newName q/39 p/9.99
+editItem
+editItem 90 d/newName q/newQ
+editItem 2 d/newName q/newQ
+editItem 2 d/newName q/39
 transact
 transact t q/80
 transact 1 q/50
 transact 2 q/-40
 transact 2 q/-39
+filterItem
+filterItem name = 'apples'
+filterItem description = 'apples'
+filterItem quantity < 10
+filterItem quantity > 10 AND quantity < 100
+filterItem price = 0
+filterItem price > 0
+filterItem description = 'ghost'
 invalidCommand
 helpinvalid
 help

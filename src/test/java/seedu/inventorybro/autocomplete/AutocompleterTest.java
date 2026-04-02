@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+//@@author kenpegrasio
 class AutocompleterTest {
     private Autocompleter autocompleter;
 
@@ -46,7 +47,7 @@ class AutocompleterTest {
     @Test
     void getMatches_emptyString_returnsAllKeywords() {
         List<String> matches = autocompleter.getMatches("");
-        assertEquals(8, matches.size());
+        assertEquals(10, matches.size());
     }
 
     @Test
