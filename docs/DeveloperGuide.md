@@ -186,6 +186,54 @@ To enhance user experience, InventoryBRO features a robust autocompletion engine
 
 ---
 
+## Product scope
+
+### Target user profile
+
+InventoryBRO is designed for small shop owners (e.g., “BRO”) who need a simple and fast way to manage their inventory using a Command Line Interface (CLI).
+
+The target user:
+
+Manages a small-scale retail inventory (e.g., drinks, snacks, convenience items)
+Prefers typing commands over using graphical interfaces
+Requires quick and precise stock updates during daily operations
+Has basic familiarity with using a computer terminal
+May not have access to complex inventory management systems
+
+
+### Value proposition
+
+InventoryBRO provides a lightweight and efficient CLI-based inventory management system that allows users to:
+
+Track current stock levels in real time
+Quickly update inventory through transactions (sales/restocks)
+View and manage all items in a structured list
+Record and review transaction history for accountability
+
+Unlike complex enterprise systems, InventoryBRO focuses on:
+
+speed (fast command execution)
+simplicity (minimal setup, no GUI overhead)
+accuracy (clear, structure)
+
+
+## User Stories
+| Version  | As a ...  | I want to ...             | So that I can ...                                           |
+|----------|-----------|---------------------------|-------------------------------------------------------------|
+| v1.0   | new user       | see usage instructions               | refer to them when I forget how to use the application |
+| v1.0   | store owner    | add items                            | keep track of new products in my inventory             |
+| v1.0   | store owner    | delete items                         | remove products that are no longer sold                |
+| v1.0   | store owner    | edit item details                    | update product name or quantity when needed            |
+| v1.0   | store owner    | view all items                       | know what products I currently have                    |
+| v1.0   | store owner    | update item quantity via transactions| record sales or restocking accurately                  |
+| v1.0   | store owner    | exit the application                 | safely close the program after use                     |
+| v2.0   | store owner    | find items by keyword                | locate items quickly without scanning the full list    |
+| v2.0   | store owner    | view transaction history             | review past transactions for tracking and reference    |
+| v2.0   | store owner | have my inventory automatically saved   | avoid losing data when I close the application           |
+| v2.0   | store owner | load previously saved inventory         | continue managing my shop from where I left off          |
+| v2.0   | store owner | view detailed instructions for a specific command | learn how to use a command correctly                     |
+
+
 ## Proposed/Planned Features
 
 ### Storage & Data Persistence
