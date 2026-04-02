@@ -9,6 +9,7 @@
 3. [Implementation](#implementation)
     * [Adding an Item](#adding-an-item)
     * [Deleting an Item](#deleting-an-item)
+    * [Editing an Item](#editing-an-item)
     * [Finding an Item](#finding-an-item)
     * [Filtering Items](#filtering-items)
     * [Transacting an Item](#transacting-an-item)
@@ -106,10 +107,85 @@ The add mechanism is handled by the `AddCommand` class. It validates the input, 
 5. If validation passes, `DeleteCommand` calculates the zero-based index and calls `deleteItem()` on the `ItemList`.
 6. Finally, a success message containing the removed item's details is passed to the `Ui` to be displayed to the user.
 
-
 **Figure 16: Delete Command Sequence Diagram**
 ![Delete Sequence Diagram](diagrams/DeleteSequenceDiagram.png)
 
+---
+
+### Editing an Item
+
+The edit mechanism is handled by the `EditCommand` class. It validates the input, then updates an existing item's **description**, **quantity**, and **price** in the inventory, identified by its 1-based list index.
+
+**Figure 16b: Edit Command Class Diagram**
+![Edit Command Class Diagram](diagrams/EditCommandClassDiagram.png)
+
+**Step-by-step Execution:**
+1. The user inputs a command such as `editItem 2 d/Orange Juice q/50 p/3.50`.
+2. `Parser` matches the `editItem` prefix and instantiates a new `EditCommand` with the raw input string.
+3. `Parser` calls `execute(items, ui)` on the `EditCommand`.
+4. `EditCommand.execute()` immediately creates a new `EditCommandValidator` and calls `validate(items)`. If the format is invalid or the index is out of bounds, an `IllegalArgumentException` is thrown and execution halts.
+5. If validation passes, the input string is parsed using a chain of `split()` calls to extract:
+   * **INDEX** — the target item's 1-based position, converted to a 0-based index.
+   * **NAME** — the new item description (after `d/`).
+   * **QUANTITY** — the new quantity as an `int` (after `q/`).
+   * **PRICE** — the new price as a `double` (after `p/`).
+6. The target `Item` is retrieved from `ItemList` via `items.getItem(index)`.
+7. The item's fields are updated in-place via `item.setDescription(newName)`, `item.setQuantity(newQuantity)`, and `item.setPrice(newPrice)`.
+8. `ui.showMessage("Item updated: " + item)` confirms the update to the user.
+
+**Figure 16c: Edit Command Sequence Diagram**
+```puml
+@startuml
+actor User
+participant "Parser" as P
+participant "EditCommand" as EC
+participant "EditCommandValidator" as ECV
+participant "ItemList" as IL
+participant "Item" as I
+participant "Ui" as UI
+
+User -> P : parse("editItem 2 d/Orange q/50 p/3.50")
+P -> EC : new EditCommand(input)
+P -> EC : execute(items, ui)
+EC -> ECV : new EditCommandValidator(input)
+EC -> ECV : validate(items)
+EC -> IL : getItem(index)
+IL --> EC : item
+EC -> I : setDescription(newName)
+EC -> I : setQuantity(newQuantity)
+EC -> I : setPrice(newPrice)
+EC -> UI : showMessage("Item updated: ...")
+@enduml
+```
+
+The parsing logic extracts each field sequentially:
+```java
+String[] words = input.split(" ", 2);
+// words[0] = "editItem", words[1] = "2 d/Orange q/50 p/3.50"
+
+String[] parts = words[1].split("d/", 2);
+int index = Integer.parseInt(parts[0].trim()) - 1;  // 0-based index
+
+String[] descParts = parts[1].split("q/", 2);
+String newName = descParts[0].trim();               // "Orange"
+
+String[] quantityParts = descParts[1].split("p/", 2);
+int newQuantity = Integer.parseInt(quantityParts[0].trim());   // 50
+double newPrice = Double.parseDouble(quantityParts[1].trim()); // 3.50
+```
+
+All validation is delegated to `EditCommandValidator` **before** any parsing occurs, keeping `EditCommand` focused purely on execution.
+
+**Design Considerations:**
+
+| Approach | Pros | Cons |
+|---|---|---|
+| Current: all 3 fields always required | Simple and predictable parsing | User must re-enter all fields even if only one changes |
+| Optional fields (`d/`, `q/`, `p/` each optional) | More flexible for the user | More complex parsing and validation logic |
+
+The current design requires all three fields to be provided. If partial edits are desired in a future version, consider regex-based parsing or `Optional<>` wrappers for each field.
+
+---
 
 ### Finding an Item
 
@@ -123,10 +199,10 @@ The add mechanism is handled by the `AddCommand` class. It validates the input, 
 4. The command iterates through the `ItemList`, retrieving each `Item` and checking if its description contains the target keyword.
 5. Matching items are immediately passed to the `Ui` to be displayed. If no items match by the end of the loop, a "not found" message is displayed instead.
 
-
 **Figure 18: Find Command Sequence Diagram**
 ![Find Sequence Diagram](diagrams/FindSequenceDiagram.png)
 
+---
 
 ### Filtering Items
 
@@ -174,6 +250,7 @@ The transact mechanism is handled by the `TransactCommand` class. It updates an 
 **Figure 22: Transact Command Sequence Diagram**
 ![Transact Sequence Diagram](diagrams/TransactCommandSequenceDiagram.png)
 
+---
 
 ### Viewing Transaction History
 
@@ -221,7 +298,7 @@ The storage system is responsible for persisting both inventory data and transac
 * Separation of inventory and transaction files
 * Append-only strategy for transaction history
 
-
+---
 
 ### Command Autocompletion
 
@@ -280,7 +357,7 @@ When a user enters an unknown command, InventoryBRO attempts to detect whether i
 
 ### Target user profile
 
-InventoryBRO is designed for small shop owners (e.g., “BRO”) who need a simple and fast way to manage their inventory using a Command Line Interface (CLI).
+InventoryBRO is designed for small shop owners (e.g., "BRO") who need a simple and fast way to manage their inventory using a Command Line Interface (CLI).
 
 The target user:
 
@@ -289,9 +366,6 @@ Prefers typing commands over using graphical interfaces
 Requires quick and precise stock updates during daily operations
 Has basic familiarity with using a computer terminal
 May not have access to complex inventory management systems
-
-
-**Implementation:** `EditCommand` parses the input in the format `edit INDEX d/NEW_NAME q/NEW_QUANTITY`. It retrieves the item at the given index from `ItemList`, then calls `setDescription()` and `setQuantity()` on it.
 
 InventoryBRO provides a lightweight and efficient CLI-based inventory management system that allows users to:
 
@@ -304,25 +378,46 @@ Unlike complex enterprise systems, InventoryBRO focuses on:
 
 speed (fast command execution)
 simplicity (minimal setup, no GUI overhead)
-accuracy (clear, structure)
+accuracy (clear, structured output)
 
+---
 
 ## User Stories
-| Version  | As a ...  | I want to ...             | So that I can ...                                           |
-|----------|-----------|---------------------------|-------------------------------------------------------------|
-| v1.0   | new user       | see usage instructions               | refer to them when I forget how to use the application |
-| v1.0   | store owner    | add items                            | keep track of new products in my inventory             |
-| v1.0   | store owner    | delete items                         | remove products that are no longer sold                |
-| v1.0   | store owner    | edit item details                    | update product name or quantity when needed            |
-| v1.0   | store owner    | view all items                       | know what products I currently have                    |
-| v1.0   | store owner    | update item quantity via transactions| record sales or restocking accurately                  |
-| v1.0   | store owner    | exit the application                 | safely close the program after use                     |
-| v2.0   | store owner    | find items by keyword                | locate items quickly without scanning the full list    |
-| v2.0   | store owner    | view transaction history             | review past transactions for tracking and reference    |
-| v2.0   | store owner | have my inventory automatically saved   | avoid losing data when I close the application           |
-| v2.0   | store owner | load previously saved inventory         | continue managing my shop from where I left off          |
-| v2.0   | store owner | view detailed instructions for a specific command | learn how to use a command correctly                     |
 
+| Version | As a ...    | I want to ...                                     | So that I can ...                                           |
+|---------|-------------|---------------------------------------------------|-------------------------------------------------------------|
+| v1.0    | new user    | see usage instructions                            | refer to them when I forget how to use the application      |
+| v1.0    | store owner | add items                                         | keep track of new products in my inventory                  |
+| v1.0    | store owner | delete items                                      | remove products that are no longer sold                     |
+| v1.0    | store owner | edit item details                                 | update product name or quantity when needed                 |
+| v1.0    | store owner | view all items                                    | know what products I currently have                         |
+| v1.0    | store owner | update item quantity via transactions             | record sales or restocking accurately                       |
+| v1.0    | store owner | exit the application                              | safely close the program after use                         |
+| v2.0    | store owner | find items by keyword                             | locate items quickly without scanning the full list         |
+| v2.0    | store owner | view transaction history                          | review past transactions for tracking and reference         |
+| v2.0    | store owner | have my inventory automatically saved             | avoid losing data when I close the application              |
+| v2.0    | store owner | load previously saved inventory                   | continue managing my shop from where I left off             |
+| v2.0    | store owner | view detailed instructions for a specific command | learn how to use a command correctly                        |
+
+---
+
+## Non-Functional Requirements
+
+{Give non-functional requirements}
+
+---
+
+## Glossary
+
+* *glossary item* - Definition
+
+---
+
+## Instructions for manual testing
+
+{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+---
 
 ## Proposed/Planned Features
 
@@ -331,5 +426,3 @@ accuracy (clear, structure)
 Future improvements may include:
 * Undo/redo functionality
 * Backup and restore features
-
----
