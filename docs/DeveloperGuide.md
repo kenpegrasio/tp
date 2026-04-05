@@ -403,19 +403,32 @@ accuracy (clear, structured output)
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* Should work on Windows, macOS, and Linux with Java 17 installed.
+* Should respond to any command within 1 second for inventory sizes up to 1000 items.
+* Data should persist between sessions via a save file.
+* The application should not require an internet connection to function.
 
 ---
 
 ## Glossary
 
-* *glossary item* - Definition
+* **Item** - A product in the inventory with a name, quantity, and price.
+* **Index** - The 1-based position of an item in the inventory list.
+* **Transaction** - A change in item quantity, either positive (restock) or negative (sale).
+* **CLI** - Command Line Interface; a text-based way to interact with the application.
 
 ---
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+1. Launch the app: `java -jar inventorybro.jar`
+2. Add items: `addItem d/Coke q/50` and `addItem d/Sprite q/30`
+3. List items: `listItems`
+4. Edit an item: `editItem 1 d/Coke Can q/45 p/1.50`
+5. Find an item: `findItem coke`
+6. Transact: `transact 1 q/-5`
+7. Delete: `deleteItem 2`
+8. Exit: `exit`
 
 ---
 
