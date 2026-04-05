@@ -58,9 +58,9 @@ Deletes an item permanently from the inventory.
 * **Example:** `deleteItem 2`
 * **Expected Output:**
   ```text
-  Item deleted:
-  2. Sprite Bottle (Quantity: 30)
-  Total items in inventory: 3
+  Noted, BRO. I've removed this item:
+  Grape (Quantity: 200, Price: $0.00)
+  Now you have 3 items in the list.
   ```
 
 ### 3. Editing an Item: `editItem`
@@ -89,13 +89,26 @@ Edits the name, quantity, and/or price of an existing item based on its index. A
 ### 4. Viewing All Items: `listItems`
 Displays a numbered list of all items currently in your inventory.
 
-* **Format:** `listItems`
-* **Example Output:**
+* **Format:** `listItems` or `listItems [FIELD] [ORDER]`
+* **Examples and output:**
   ```text
+  > listItems
   Here are your current inventory items:
-  1. Coke Can (Quantity: 50)
-  2. Sprite Bottle (Quantity: 30)
-  3. Potato Chips (Quantity: 20)
+  1. Coke Can (Quantity: 50, Price: $2.00)
+  2. Sprite Bottle (Quantity: 30, Price: $1.00)
+  3. Potato Chips (Quantity: 20, Price: $3.00)
+  
+  > listItems quantity high
+  Here are your current inventory items based on quantity in descending order:
+  1. Coke Can (Quantity: 50, Price: $2.00)
+  2. Potato Chips (Quantity: 20, Price: $3.00)
+  3. Sprite Bottle (Quantity: 30, Price: $1.00)
+  
+  > listItems price low
+  Here are your current inventory items based on price in ascending order:
+  1. Sprite Bottle (Quantity: 30, Price: $1.00)
+  2. Coke Can (Quantity: 50, Price: $2.00)
+  3. Potato Chips (Quantity: 20, Price: $3.00)
   ```
 
 ### 5. Finding an Item: `findItem`
@@ -106,7 +119,7 @@ Searches for items whose descriptions contain your specified keyword. This is ca
 * **Expected Output:**
   ```text
   Here are the matching items in your inventory:
-  1. Coke Can (Quantity: 50)
+  1. Coke Can (Quantity: 50, Price: $1.50)
   ```
 
 ### 6. Filtering Items: `filterItem`
@@ -167,7 +180,23 @@ Updates the stock quantity after a sale or restock.
   Sprite Bottle new quantity: 40
   ```
 
-### 8. Getting Help: `help`
+### 8. Viewing Transaction History: `showHistory`
+Displays a complete, numbered list of all past transactions (sales and restocks) recorded by the application.
+
+* **Format:** `showHistory`
+* **Example Output (With History):**
+  ```text
+  Transaction History:
+  1. Sprite Bottle | 10 | 2026-04-01 11:22
+  2. Coke Can | -5 | 2026-04-01 11:22
+  3. Coke Can | -50 | 2026-04-01 11:22
+  ```
+* **Example Output (Empty History):**
+  ```text
+  No transaction history found.
+  ```
+
+### 9. Getting Help: `help`
 Displays a quick-reference list of all available commands, or provides detailed instructions and examples for a specific command.
 
 * **Format 1 (General Summary):** `help`
@@ -186,6 +215,9 @@ Displays a quick-reference list of all available commands, or provides detailed 
       ```
 
 ### 9. Exiting the Program: `exit`
+* **Format:** `help`
+
+### 10. Exiting the Program: `exit`
 Safely closes the application.
 
 * **Format:** `exit`
@@ -272,8 +304,8 @@ If you accidentally misspell a command, InventoryBRO will attempt to detect the 
 
 ---
 
-## 🔮 Scope of v1.0
-InventoryBRO v1.0 officially supports:
+## Scope of v2.0
+InventoryBRO v2.0 officially supports:
 * Basic inventory tracking and quantity updates
 * Viewing current stock & finding specific items
 * Typo suggestions & Command Tab-autocompletion
@@ -282,3 +314,4 @@ InventoryBRO v1.0 officially supports:
 **Planned for Future Versions:**
 * Add price tracking to items
 * Low-stock automated alerts
+* Edit individual fields for each item instead of requiring all fields
