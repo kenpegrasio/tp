@@ -14,6 +14,8 @@
     * [Filtering Items](#filtering-items)
     * [Transacting an Item](#transacting-an-item)
     * [Viewing Transaction History](#viewing-transaction-history)
+    * [Viewing list of items in the inventory](#viewing-list-of-items-in-the-inventory)
+    * [Viewing help instructions of how to use commands](#Viewing-help-instructions-of-how-to-use-commands)
     * [Storage System](#storage-system)
     * [Command Autocompletion (Trie & JLine)](#command-autocompletion)
     * [Typo Detection](#typo-detection)
@@ -71,6 +73,27 @@ The `Parser` is responsible for routing user input to the correct command.
 ---
 
 ## Implementation
+### Adding an Item
+
+The add mechanism is handled by the `AddCommand` class. It validates the input, creates a new `Item`, and appends it to the inventory.
+
+**Figure 13: Add Command Class Diagram**
+![Add Command Class Diagram](diagrams/AddCommandClassDiagram.png)
+
+**Step-by-step Execution:**
+1. The user inputs `addItem d/Apple q/50`.
+2. `Parser` matches the `addItem` prefix and instantiates a new `AddCommand` with the raw input string.
+3. `Parser` calls `execute(items, ui)` on the `AddCommand`.
+4. `AddCommand.execute()` immediately creates a new `AddCommandValidator` and calls `validate(items)`.
+5. `AddCommandValidator` applies the regex `^addItem d/(.*?) q/(\d+)$` to the input. If it does not match, it throws `IllegalArgumentException` with `"Invalid addItem format! Use: addItem d/NAME q/INITIAL_QUANTITY"`. If the format is valid, it trims the captured name and delegates to `DuplicateItemValidator`, which iterates the `ItemList` performing a case-insensitive name comparison; a match throws `IllegalArgumentException` with `"An item named '<NAME>' already exists in the inventory."`.
+6. If validation passes, `AddCommand` re-applies the same regex to extract the trimmed name and parses the quantity as an integer.
+7. A new `Item` is constructed and appended to the `ItemList` via `items.addItem(newItem)`.
+8. `ui.showMessage("Added: " + newItem)` confirms the addition to the user.
+
+**Figure 14: Add Command Sequence Diagram**
+![Add Command Sequence Diagram](diagrams/AddCommandSequenceDiagram.png)
+
+---
 
 ### Adding an Item
 
@@ -270,8 +293,38 @@ The `ShowTransactionHistoryCommand` retrieves and displays all past transactions
 **Figure 24: Show History Sequence Diagram**
 ![Show History Sequence Diagram](diagrams/ShowTransactionHistoryCommandSequenceDiagram.png)
 
----
+### Viewing list of items in the inventory
+**Figure 25: List Command Class Diagram**
+![Show List Command Class Diagram](diagrams/ListCommandClassDiagram.png)
 
+**Step-by-step Execution:**
+1. When the user inputs `listItems`, the parser instantiates a new `ListCommand` with the raw input string.
+2. The `execute` method of `ListCommand` is called.
+3. The `execute` method creates `ListCommandValidator` with the raw input string and calls the `validate` method.
+4. The `validate` method checks that the raw input string follows the correct format for `listItems` command. If the correct format is not followed, it will throw an `IllegalArgumentException` and halt the execution.
+5. Control is returned to the `execute` method which checks if the inventory list is empty and passes a message that the inventory is empty to the `ui` to display to the user.
+6. Otherwise, it passes the list of items in the inventory to the `ui` to display to the user.
+
+**Figure 26: List Command Sequence Diagram**
+![List Command Sequence Diagram](diagrams/ListCommandSequenceDiagram.png)
+
+### Viewing help instructions of how to use commands
+**Figure 27: Help Command Sequence Diagram**
+![Show Help Command Class Diagram](diagrams/HelpCommandClassDiagram.png)
+
+**Step-by-step Execution:**
+1. The user inputs `help` or specifies a particular command and inputs `help [command_name]`.
+2. The parser instantiates a new `HelpCommand` with the raw input string and the `execute` method is called.
+3. The `execute` method creates `HelpCommandValidator` with the raw input string and calls the `validate` method.
+4. The `validate` method checks that the raw input string follows the correct format for the `help` command. If an invalid command name is given or there are more than one command name specified, an `IllegalArgumentException` is thrown and execution is halted.
+5. The `execute` method then checks the raw input string if a particular command name is specified:
+    * If yes, then the detailed instruction of that particular command is passed to the `ui` to be displayed to the user.
+    * If no, which means the user input is only `help`, then the command names and their summaries are passed to the `ui` to display to the user.
+
+**Figure 28: Help Command Sequence Diagram**
+![Help Command Sequence Diagram](diagrams/HelpCommandSequenceDiagram.png)
+
+---
 ### Storage System
 
 The storage system is responsible for persisting both inventory data and transaction history.
