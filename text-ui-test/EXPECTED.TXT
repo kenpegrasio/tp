@@ -73,16 +73,16 @@ Noted, BRO. I've removed this item:
 Now you have 3 items in the list.
 --------------------------------------------------
 --------------------------------------------------
-ERROR: Invalid editName format. Use: editName INDEX d/NEW_NAME
+ERROR: Invalid index.
 --------------------------------------------------
 --------------------------------------------------
 ERROR: Invalid index.
 --------------------------------------------------
 --------------------------------------------------
-ERROR: Invalid editName format. Use: editName INDEX d/NEW_NAME
+ERROR: Invalid index.
 --------------------------------------------------
 --------------------------------------------------
-ERROR: Invalid editQuantity format. Use: editQuantity INDEX q/NEW_QUANTITY
+ERROR: Invalid index.
 --------------------------------------------------
 --------------------------------------------------
 ERROR: Invalid transact format. Use: transact INDEX q/CHANGE_IN_QUANTITY
