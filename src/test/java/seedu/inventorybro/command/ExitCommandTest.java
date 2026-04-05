@@ -1,22 +1,27 @@
 package seedu.inventorybro.command;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
 import seedu.inventorybro.ItemList;
 import seedu.inventorybro.Ui;
 
-/**
- * Tests for {@link ExitCommand}.
- */
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class ExitCommandTest {
     private final Ui ui = new Ui();
-    /**
-     * Verifies that executing the exit command triggers application termination.
-     */
+
+    @AfterEach
+    void tearDown() {
+        ExitCommand.resetExiter(); // cleanup after each test
+    }
+
     @Test
     void execute_callsSystemExit() {
-        assertThrows(Exception.class, () -> new ExitCommand().execute(new ItemList(), ui));
+        boolean[] exitCalled = {false};
+        ExitCommand.setExiter(() -> exitCalled[0] = true);
+
+        new ExitCommand().execute(new ItemList(), ui);
+
+        assertTrue(exitCalled[0]);
     }
 }
