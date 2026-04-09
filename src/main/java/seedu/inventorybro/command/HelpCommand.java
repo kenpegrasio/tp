@@ -17,25 +17,25 @@ import seedu.inventorybro.validator.HelpCommandValidator;
 public class HelpCommand implements Command {
     private static final String HELPSUMMARYMESSAGE = """
             Command names and their summaries:
-            addItem:    Adds a new item of a given name, quantity, and price to the inventory list.
-            deleteItem: Deletes an item from the current inventory list.
-            editItem:   Edits the name and/or quantity of an existing item in the inventory
-                        based on item index. At least name or quantity must be provided,
-                        existing values are updated to the input values.
-            findItem:   Finds an item in the current inventory list based on the keyword typed
-
-                        or displays message to the user that the inventory does not have item
-                        that matches keyword.
-            filterItem: Displays only the items that match one or more field-based conditions.
-                        Conditions can be combined using AND or OR operators.
-            transact:   Updates stock quantities after a sale or restock.
-            showTransactHistory: Displays a complete, numbered list of all past transactions
-                                 (sales and restocks) recorded by the application.
-            listItems:  Displays all items currently in the inventory, or displays message
-                        to the user that the inventory is empty if there are no items.
-            help:       Displays summaries of each command to the user, or displays a detailed
-                        instruction of a specified command.
-            exit:       Closes the application.
+            addItem:     Adds a new item of a given name, quantity, and price to the inventory list.
+            deleteItem:  Deletes an item from the current inventory list.
+            editItem:    Edits the name and/or quantity of an existing item in the inventory
+                         based on item index. At least name or quantity must be provided,
+                         existing values are updated to the input values.
+            findItem:    Finds an item in the current inventory list based on the keyword typed
+                         or displays message to the user that the inventory does not have item
+                         that matches keyword.
+            filterItem:  Displays only the items that match one or more field-based conditions.
+                         Conditions can be combined using AND or OR operators.
+            transact:    Updates stock quantities after a sale or restock.
+            showHistory: Displays a complete, numbered list of all past transactions
+                         (sales and restocks) recorded by the application.
+            listItems:   Displays all items currently in the inventory, or displays message
+                         to the user that the inventory is empty if there are no items.
+            help:        Displays summaries of each command to the user, or displays a detailed
+                         instruction of a specified command.
+            exit:        Closes the application. All saved data can be found in '/data/inventory.txt`
+                         and '/data/transaction.txt'.
 
             For further details on a particular command, specify it using 'help [COMMAND_NAME]'.
             """;
@@ -146,7 +146,14 @@ public class HelpCommand implements Command {
     private static final String HELPSHOWHISTORYMESSAGE = """
             showHistory:
             Displays a complete, numbered list of all past transactions (sales and restocks)
-            recorded by the application.
+            recorded by the application, or displays a message to the user that no transaction
+            history is found if there are no recorded transactions.
+            
+            The display format of each transaction is as such:
+            
+            1. [Item description] | [Item quantity] | [YYYY-MM-DD] [HH-MM]
+            
+            where [YYYY-MM-DD] [HH-MM] are the transaction date and time.
             
             Example usage: showHistory
             """;
@@ -174,7 +181,10 @@ public class HelpCommand implements Command {
             """;
     private static final String HELPEXITMESSAGE = """
             exit:
-            Closes the application.
+            Closes the application. You can view your saved data in '/data/inventory.txt` and
+            your transaction history in '/data/transaction.txt'. If the folder or files do not
+            exist, InventoryBRO will automatically create it for you
+            upon startup.
 
             Example usage: exit
             """;
