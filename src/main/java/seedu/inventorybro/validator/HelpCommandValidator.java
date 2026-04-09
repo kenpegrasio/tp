@@ -1,5 +1,6 @@
 package seedu.inventorybro.validator;
 
+import seedu.inventorybro.CommandWord;
 import seedu.inventorybro.ItemList;
 
 //@@author adbsw
@@ -42,17 +43,26 @@ public class HelpCommandValidator implements Validator {
      * @param words String array of words from the raw user input.
      */
     private static void validateCommandSpecified(String[] words) {
-        boolean isNotCommand = !words[1].equals("addItem") && !words[1].equals("deleteItem")
-                && !words[1].equals("editItem") && !words[1].equals("findItem")
-                && !words[1].equals("filterItem") && !words[1].equals("transact")
-                && !words[1].equals("listItems") && !words[1].equals("help")
-                && !words[1].equals("exit");
-
-        if (isNotCommand || !(words.length == 2)) {
+        if (!isValidCommand(words[1]) || !(words.length == 2)) {
             throw new IllegalArgumentException("Invalid help format. "
                     + "Use: help [VALID_COMMAND_NAME]"
                     + System.lineSeparator()
                     + "or enter 'help' to display each command name and their summaries.");
         }
+    }
+
+    /**
+     * Checks if the command word is valid and returns true, else returns false.
+     *
+     * @param word The command word.
+     * @return true if the command word is valid, else returns false.
+     */
+    private static boolean isValidCommand(String word) {
+        for (CommandWord c : CommandWord.values()) {
+            if (c.getWord().equals(word)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
