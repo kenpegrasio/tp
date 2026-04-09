@@ -26,6 +26,8 @@ public class HelpCommand implements Command {
 
                         or displays message to the user that the inventory does not have item
                         that matches keyword.
+            filterItem: Displays only the items that match one or more field-based conditions.
+                        Conditions can be combined using AND or OR operators.
             transact:   Updates stock quantities after a sale or restock.
             listItems:  Displays all items currently in the inventory, or displays message
                         to the user that the inventory is empty if there are no items.
@@ -81,6 +83,33 @@ public class HelpCommand implements Command {
 
             Example usage: findItem app
             This displays all items containing 'app' in their name, such as 'Apples' or 'Pineapple'.
+            """;
+    private static final String HELPFILTERITEMMESSAGE = """
+            filterItem:
+            Displays only the items that match one or more field-based conditions.
+            Conditions can be combined using AND (both must match) or OR (either must match).
+            AND binds tighter than OR.
+
+            Supported fields: description, quantity, price
+            Supported operators: = < >
+
+            - description values must be wrapped in single quotes (e.g. 'Coke Can').
+            - quantity and price values must be whole numbers (decimals are not accepted).
+
+            Format: filterItem FIELD OPERATOR VALUE [AND|OR FIELD OPERATOR VALUE ...]
+
+            Example usages:-
+            (Single condition): filterItem quantity > 10
+            This displays all items with a quantity greater than 10.
+
+            (AND condition): filterItem quantity > 10 AND quantity < 40
+            This displays items with quantity between 11 and 39 (inclusive).
+
+            (OR condition): filterItem description = 'Coke Can' OR description = 'Sprite Bottle'
+            This displays items whose description matches either 'Coke Can' or 'Sprite Bottle'.
+
+            (Price filter): filterItem price < 5
+            This displays all items with a price less than 5.
             """;
     private static final String HELPTRANSACTMESSAGE = """
             transact:
@@ -139,6 +168,7 @@ public class HelpCommand implements Command {
             entry("deleteItem", HELPDELETEITEMMESSAGE),
             entry("editItem", HELPEDITITEMMESSAGE),
             entry("findItem", HELPFINDITEMMESSAGE),
+            entry("filterItem", HELPFILTERITEMMESSAGE),
             entry("transact", HELPTRANSACTMESSAGE),
             entry("listItems", HELPLISTITEMSMESSAGE),
             entry("help", HELPHELPMESSAGE),

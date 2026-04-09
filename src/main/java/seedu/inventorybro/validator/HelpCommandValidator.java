@@ -43,7 +43,8 @@ public class HelpCommandValidator implements Validator {
      */
     private static void validateCommandSpecified(String[] words) {
         boolean isNotCommand = !words[1].equals("addItem") && !words[1].equals("deleteItem")
-                && !words[1].equals("editItem") && !words[1].equals("transact")
+                && !words[1].equals("editItem") && !words[1].equals("findItem")
+                && !words[1].equals("filterItem") && !words[1].equals("transact")
                 && !words[1].equals("listItems") && !words[1].equals("help")
                 && !words[1].equals("exit");
 
