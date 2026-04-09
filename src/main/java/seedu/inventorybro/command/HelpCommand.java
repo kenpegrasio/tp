@@ -63,6 +63,7 @@ public class HelpCommand implements Command {
             This removes the item indexed at 1 in the inventory list.
             """;
     private static final String HELPEDITDESCRIPTIONMESSAGE = """
+            editDescription:
             Edits the description of an existing item in the current inventory list based on
             the provided list index.
             
@@ -71,6 +72,7 @@ public class HelpCommand implements Command {
             'Sprite Bottle'.
             """;
     private static final String HELPEDITPRICEMESSAGE = """
+            editPrice:
             Edits the price of an existing item in the current inventory list based on the
             provided list index.
             
@@ -78,6 +80,7 @@ public class HelpCommand implements Command {
             This updates the price of the item indexed at 1 in the inventory list to '$2'.
             """;
     private static final String HELPEDITQUANTITYMESSAGE = """
+            editQuantity:
             Edits the quantity of an existing item in the current inventory list based on the
             provided list index.
             
