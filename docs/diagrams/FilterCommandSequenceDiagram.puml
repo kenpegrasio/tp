@@ -39,9 +39,12 @@ FilterCommand -> FilterCommandValidator : validate(items)
 activate FilterCommandValidator
 note right of FilterCommandValidator
   Checks input starts with "filterItem "
-  Extracts predicates via regex
+  Extracts predicates via PREDICATE_PATTERN
   Validates gaps (AND/OR between predicates)
-  Validates value types per field
+  Per predicate value type:
+    description → must be single-quoted
+    quantity    → must match ^\d+$
+    price       → must match ^\d+(\.\d{1,2})?$
 end note
 FilterCommandValidator --> FilterCommand
 deactivate FilterCommandValidator
@@ -64,7 +67,15 @@ loop for each item in ItemList
     deactivate Item
 
     FilterCommand -> FilterCommand : passesFilter(item, andGroups)
-    note right : Item passes if it satisfies\nall predicates in at least one AND-group
+    note right
+      Item passes if it satisfies all predicates
+      in at least one AND-group.
+      evaluatePredicate() per field:
+        description → String.compareTo
+        quantity    → Integer.compare
+        price       → Double.compare on values
+                      rounded via Math.round(x*100)/100.0
+    end note
 end
 
 FilterCommand --> FilterCommand : results

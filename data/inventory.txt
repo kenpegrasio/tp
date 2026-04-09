@@ -1,2 +1,4 @@
-10 | Apple | 0.01
-10 | FreshTestItem | 1.50
+50 | Coke Can | 2.00
+30 | Sprite Bottle | 1.00
+20 | Potato Chips | 3.50
+111 | Apple | 1000.00

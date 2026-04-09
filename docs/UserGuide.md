@@ -139,7 +139,7 @@ Supported fields and value types:
 | :--- | :--- | :--- |
 | `description` | `=` `<` `>` | Text enclosed in **single quotes** (e.g. `'Coke'`) |
 | `quantity` | `=` `<` `>` | Non-negative integer (e.g. `10`) |
-| `price` | `=` `<` `>` | Non-negative integer (e.g. `5`) |
+| `price` | `=` `<` `>` | Non-negative number with at most 2 decimal places (e.g. `1.50`) |
 
 * **Format:** `filterItem FIELD OPERATOR VALUE [AND|OR FIELD OPERATOR VALUE ...]`
 * **Example 1 (single predicate):** `filterItem quantity > 10`
@@ -159,17 +159,23 @@ Supported fields and value types:
   1. Coke Can (Quantity: 50, Price: $0.00)
   2. Sprite Bottle (Quantity: 30, Price: $0.00)
   ```
-* **Example 4 (price filter):** `filterItem price < 5`
+* **Example 4 (price filter — integer):** `filterItem price < 5`
   ```text
   Here are the filtered items:
   1. Potato Chips (Quantity: 20, Price: $2.00)
+  ```
+* **Example 5 (price filter — decimal):** `filterItem price > 1.50`
+  ```text
+  Here are the filtered items:
+  1. Coke Can (Quantity: 50, Price: $2.00)
+  2. Potato Chips (Quantity: 20, Price: $3.50)
   ```
 * **No match output:**
   ```text
   No items match the given filter.
   ```
 
-> **Note:** Description values must always be wrapped in single quotes. Quantity and price values must be whole numbers — decimals are not accepted.
+> **Note:** Description values must always be wrapped in single quotes. Quantity values must be whole numbers — decimals are not accepted. Price values accept up to 2 decimal places (e.g. `1.50`); values with more than 2 decimal places (e.g. `1.999`) are rejected. Comparison is done on the price rounded to 2 decimal places.
 
 ### 9. Recording a Transaction: `transact`
 Updates the stock quantity after a sale or restock.

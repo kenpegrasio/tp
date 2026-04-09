@@ -14,7 +14,8 @@ import seedu.inventorybro.ItemList;
  * <ul>
  *   <li>{@code description} values must be enclosed in single quotes (e.g. {@code 'Apple'})</li>
  *   <li>{@code quantity} values must be a non-negative integer (e.g. {@code 10})</li>
- *   <li>{@code price} values must be a non-negative integer (e.g. {@code 5})</li>
+ *   <li>{@code price} values must be a non-negative number with at most 2 decimal places
+ *       (e.g. {@code 5} or {@code 5.99})</li>
  * </ul>
  */
 public class FilterCommandValidator implements Validator {
@@ -22,6 +23,7 @@ public class FilterCommandValidator implements Validator {
             Pattern.compile("(description|quantity|price) (=|<|>) ('.*?'|[^\\s']+)");
     private static final Pattern STRING_VALUE_PATTERN = Pattern.compile("^'.*'$");
     private static final Pattern NONNEG_INT_PATTERN = Pattern.compile("^\\d+$");
+    private static final Pattern NONNEG_PRICE_PATTERN = Pattern.compile("^\\d+(\\.\\d{1,2})?$");
 
     private final String input;
 
@@ -145,10 +147,10 @@ public class FilterCommandValidator implements Validator {
                             + " Example: filterItem quantity > 10"
             );
         }
-        if (field.equals("price") && !NONNEG_INT_PATTERN.matcher(value).matches()) {
+        if (field.equals("price") && !NONNEG_PRICE_PATTERN.matcher(value).matches()) {
             throw new IllegalArgumentException(
-                    "Price value must be a non-negative integer."
-                            + " Example: filterItem price > 5"
+                    "Price value must be a non-negative number with at most 2 decimal places."
+                            + " Example: filterItem price > 5.99"
             );
         }
     }

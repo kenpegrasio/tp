@@ -307,4 +307,91 @@ class FilterCommandTest {
                 + "2. Cherry (Quantity: 20, Price: $3.00)" + System.lineSeparator();
         assertEquals(expected, outContent.toString());
     }
+
+    // ── Decimal price filter tests ────────────────────────────────────────────
+
+    private ItemList buildDecimalPriceItems() {
+        ItemList items = new ItemList();
+        Item mango = new Item("Mango", 10);
+        mango.setPrice(1.99);
+        Item papaya = new Item("Papaya", 15);
+        papaya.setPrice(8.50);
+        Item lychee = new Item("Lychee", 5);
+        lychee.setPrice(3.25);
+        items.addItem(mango);
+        items.addItem(papaya);
+        items.addItem(lychee);
+        return items;
+    }
+
+    /**
+     * Verifies that filtering by an exact decimal price returns only the matching item.
+     * Mango has price=1.99; only Mango should be returned.
+     */
+    @Test
+    void execute_priceDecimalEquals_returnsExactMatch() {
+        new FilterCommand("filterItem price = 1.99").execute(buildDecimalPriceItems(), ui);
+
+        String expected = "Here are the filtered items:" + System.lineSeparator()
+                + "1. Mango (Quantity: 10, Price: $1.99)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    /**
+     * Verifies that filtering by decimal price less-than returns items with a lower price.
+     * Prices: Mango=1.99, Papaya=8.50, Lychee=3.25. price < 8.50 returns Mango and Lychee.
+     */
+    @Test
+    void execute_priceDecimalLessThan_returnsItemsBelow() {
+        new FilterCommand("filterItem price < 8.50").execute(buildDecimalPriceItems(), ui);
+
+        String expected = "Here are the filtered items:" + System.lineSeparator()
+                + "1. Mango (Quantity: 10, Price: $1.99)" + System.lineSeparator()
+                + "2. Lychee (Quantity: 5, Price: $3.25)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    /**
+     * Verifies that filtering by decimal price greater-than returns items with a higher price.
+     * Prices: Mango=1.99, Papaya=8.50, Lychee=3.25. price > 3.25 returns Papaya.
+     */
+    @Test
+    void execute_priceDecimalGreaterThan_returnsItemsAbove() {
+        new FilterCommand("filterItem price > 3.25").execute(buildDecimalPriceItems(), ui);
+
+        String expected = "Here are the filtered items:" + System.lineSeparator()
+                + "1. Papaya (Quantity: 15, Price: $8.50)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    /**
+     * Verifies that price comparison rounds item price to 2 decimal places before comparing.
+     * Item with price=1.999 rounds to 2.00; filtering by price = 2 should match it.
+     */
+    @Test
+    void execute_priceRoundingComparison_roundedItemMatchesFilter() {
+        ItemList items = new ItemList();
+        Item item = new Item("RoundItem", 1);
+        item.setPrice(1.999);
+        items.addItem(item);
+
+        new FilterCommand("filterItem price = 2").execute(items, ui);
+
+        String expected = "Here are the filtered items:" + System.lineSeparator()
+                + "1. RoundItem (Quantity: 1, Price: $2.00)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
+
+    /**
+     * Verifies that an integer filter value and its decimal equivalent match the same items.
+     * price = 8 and price = 8.00 should both match Banana (price=8).
+     */
+    @Test
+    void execute_priceIntegerAndDecimalEquivalent_sameResult() {
+        new FilterCommand("filterItem price = 8.00").execute(buildItems(), ui);
+
+        String expected = "Here are the filtered items:" + System.lineSeparator()
+                + "1. Banana (Quantity: 5, Price: $8.00)" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+    }
 }

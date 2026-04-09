@@ -94,7 +94,10 @@ public class HelpCommand implements Command {
             Supported operators: = < >
 
             - description values must be wrapped in single quotes (e.g. 'Coke Can').
-            - quantity and price values must be whole numbers (decimals are not accepted).
+            - quantity values must be whole numbers (decimals are not accepted).
+            - price values accept up to 2 decimal places (e.g. 5 or 1.99). Values with more
+              than 2 decimal places (e.g. 1.999) are rejected. Comparison is done on the price
+              rounded to 2 decimal places.
 
             Format: filterItem FIELD OPERATOR VALUE [AND|OR FIELD OPERATOR VALUE ...]
 
@@ -108,8 +111,11 @@ public class HelpCommand implements Command {
             (OR condition): filterItem description = 'Coke Can' OR description = 'Sprite Bottle'
             This displays items whose description matches either 'Coke Can' or 'Sprite Bottle'.
 
-            (Price filter): filterItem price < 5
+            (Price filter — integer): filterItem price < 5
             This displays all items with a price less than 5.
+
+            (Price filter — decimal): filterItem price > 1.50
+            This displays all items with a price greater than $1.50.
             """;
     private static final String HELPTRANSACTMESSAGE = """
             transact:

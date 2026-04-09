@@ -24,6 +24,10 @@ interface Validator <<interface>> {
 }
 
 class FilterCommandValidator {
+    - PREDICATE_PATTERN: Pattern
+    - STRING_VALUE_PATTERN: Pattern
+    - NONNEG_INT_PATTERN: Pattern
+    - NONNEG_PRICE_PATTERN: Pattern
     - input: String
     + FilterCommandValidator(input: String)
     + validate(items: ItemList): void

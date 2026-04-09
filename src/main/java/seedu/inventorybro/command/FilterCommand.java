@@ -19,7 +19,7 @@ import seedu.inventorybro.validator.FilterCommandValidator;
  * every predicate in at least one group.</p>
  *
  * <p>Supports {@code description} (lexicographic comparison), {@code quantity}
- * (numeric comparison), and {@code price} (integer comparison).</p>
+ * (integer comparison), and {@code price} (decimal comparison, rounded to 2 decimal places).</p>
  */
 public class FilterCommand implements Command {
     private static final Pattern PREDICATE_PATTERN =
@@ -179,7 +179,9 @@ public class FilterCommand implements Command {
             return satisfiesOperator(item.getDescription().compareTo(valueMatcher.group(1)), operator);
         }
         if (field.equals("price")) {
-            return satisfiesOperator(Integer.compare((int) item.getPrice(), Integer.parseInt(rawValue)), operator);
+            double itemPrice = Math.round(item.getPrice() * 100) / 100.0;
+            double filterPrice = Math.round(Double.parseDouble(rawValue) * 100) / 100.0;
+            return satisfiesOperator(Double.compare(itemPrice, filterPrice), operator);
         }
         return satisfiesOperator(Integer.compare(item.getQuantity(), Integer.parseInt(rawValue)), operator);
     }

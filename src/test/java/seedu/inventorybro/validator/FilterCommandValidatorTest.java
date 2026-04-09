@@ -169,10 +169,10 @@ class FilterCommandValidatorTest {
     }
 
     /**
-     * Verifies that a non-integer price value is rejected.
+     * Verifies that a non-numeric price value is rejected.
      */
     @Test
-    void validate_priceValueNonInteger_throwsException() {
+    void validate_priceValueNonNumeric_throwsException() {
         assertThrows(IllegalArgumentException.class,
                 () -> new FilterCommandValidator("filterItem price = abc").validate(buildItems()));
     }
@@ -184,6 +184,52 @@ class FilterCommandValidatorTest {
     void validate_negativePrice_throwsException() {
         assertThrows(IllegalArgumentException.class,
                 () -> new FilterCommandValidator("filterItem price = -5").validate(buildItems()));
+    }
+
+    /**
+     * Verifies that a price with one decimal place passes validation.
+     */
+    @Test
+    void validate_priceWithOneDecimalPlace_noException() {
+        assertDoesNotThrow(() ->
+                new FilterCommandValidator("filterItem price = 5.9").validate(buildItems()));
+    }
+
+    /**
+     * Verifies that a price with two decimal places passes validation.
+     */
+    @Test
+    void validate_priceWithTwoDecimalPlaces_noException() {
+        assertDoesNotThrow(() ->
+                new FilterCommandValidator("filterItem price = 5.99").validate(buildItems()));
+    }
+
+    /**
+     * Verifies that a price with more than two decimal places is rejected.
+     */
+    @Test
+    void validate_priceWithThreeDecimalPlaces_throwsException() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new FilterCommandValidator("filterItem price = 5.999").validate(buildItems()));
+    }
+
+    /**
+     * Verifies that a decimal price inside a multi-predicate filter passes validation.
+     */
+    @Test
+    void validate_priceDecimalInMultiPredicate_noException() {
+        assertDoesNotThrow(() ->
+                new FilterCommandValidator("filterItem price > 1.50 AND price < 5.99")
+                        .validate(buildItems()));
+    }
+
+    /**
+     * Verifies that a quantity value with decimals is still rejected (only integers allowed).
+     */
+    @Test
+    void validate_quantityWithDecimal_throwsException() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new FilterCommandValidator("filterItem quantity = 5.5").validate(buildItems()));
     }
 
     // ── Multi-predicate: valid inputs ─────────────────────────────────────────
