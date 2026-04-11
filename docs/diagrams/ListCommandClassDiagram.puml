@@ -27,6 +27,7 @@ class ItemList {
     + isEmpty(): boolean
     + size(): int
     + getItem(index: int): Item
+    + getSortedItems(property: String, order: String): ArrayList<Item>
 }
 
 class Ui {

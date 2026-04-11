@@ -12,7 +12,8 @@ import java.util.Optional;
  */
 public class TypoDetector {
     private static final List<String> KNOWN_COMMANDS = Arrays.asList(
-            "addItem", "deleteItem", "editItem", "transact", "listItems", "help", "exit"
+            "addItem", "deleteItem", "editDescription", "editPrice", "editQuantity", "transact",
+            "filterItem", "showHistory", "listItems", "findItem", "help", "exit"
     );
     private static final double TYPO_THRESHOLD_FACTOR = 0.2;
     private static final Map<Character, int[]> KEY_POSITIONS = buildKeyPositions();

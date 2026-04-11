@@ -17,11 +17,17 @@
     * [Transacting an Item](#transacting-an-item)
     * [Viewing Transaction History](#viewing-transaction-history)
     * [Viewing list of items in the inventory](#viewing-list-of-items-in-the-inventory)
-    * [Viewing help instructions of how to use commands](#Viewing-help-instructions-of-how-to-use-commands)
+    * [Viewing help messages of commands](#viewing-help-messages-of-commands)
     * [Storage System](#storage-system)
     * [Command Autocompletion (Trie & JLine)](#command-autocompletion)
     * [Typo Detection](#typo-detection)
-4. [Proposed/Planned Features](#proposedplanned-features)
+4. [Product Scope](#product-scope)
+   * [Target User Profile](#target-user-profile)
+   * [User Stories](#user-stories)
+   * [Non-Functional Requirements](#non-functional-requirements)
+   * [Glossary](#glossary)
+   * [Instructions for manual testing](#instructions-for-manual-testing)
+5. [Proposed/Planned Features](#proposedplanned-features)
     * [Storage & Data Persistence](#storage--data-persistence)
 
 ---
@@ -79,7 +85,7 @@ The `Parser` is responsible for routing user input to the correct command.
 
 The add mechanism is handled by the `AddCommand` class. It validates the input, creates a new `Item` with a name, quantity, and price, and appends it to the inventory.
 
-**Figure 13: Add Command Class Diagram**
+**Figure 4: Add Command Class Diagram**
 ![Add Command Class Diagram](diagrams/AddCommandClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -96,14 +102,14 @@ The add mechanism is handled by the `AddCommand` class. It validates the input, 
 7. A new `Item` is constructed via `new Item(name, quantity, price)` and appended to the `ItemList` via `items.addItem(newItem)`.
 8. `ui.showMessage("Added: " + newItem)` confirms the addition to the user.
 
-**Figure 14: Add Command Sequence Diagram**
+**Figure 5: Add Command Sequence Diagram**
 ![Add Command Sequence Diagram](diagrams/AddCommandSequenceDiagram.png)
 
 ---
 
 ### Deleting an Item
 
-**Figure 15: Delete Command Class Diagram**
+**Figure 6: Delete Command Class Diagram**
 ![Delete Class Diagram](diagrams/DeleteClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -114,7 +120,7 @@ The add mechanism is handled by the `AddCommand` class. It validates the input, 
 5. If validation passes, `DeleteCommand` calculates the zero-based index and calls `deleteItem()` on the `ItemList`.
 6. Finally, a success message containing the removed item's details is passed to the `Ui` to be displayed to the user.
 
-**Figure 16: Delete Command Sequence Diagram**
+**Figure 7: Delete Command Sequence Diagram**
 ![Delete Sequence Diagram](diagrams/DeleteSequenceDiagram.png)
 
 ---
@@ -123,7 +129,7 @@ The add mechanism is handled by the `AddCommand` class. It validates the input, 
 
 The edit-description mechanism is handled by the `EditDescriptionCommand` class. It updates the description field of an existing item in the inventory.
 
-**Figure 30: Edit Description Command Class Diagram**
+**Figure 8: Edit Description Command Class Diagram**
 ![Edit Description Command Class Diagram](diagrams/EditDescriptionCommandClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -138,7 +144,7 @@ The edit-description mechanism is handled by the `EditDescriptionCommand` class.
    - Trims the text after `d/`; if it is empty, it throws `IllegalArgumentException` with `"Item description cannot be empty."`.
 6. If validation passes, `EditDescriptionCommand` performs the same parse: splits on the first space, then on `d/`, converts the index to zero-based, and trims the new description string. It calls `items.getItem(index)` to retrieve the target `Item`, then calls `item.setDescription(newDescription)` to update it in-place. Finally, it calls `ui.showMessage("Item description updated: " + item)` to confirm the change to the user.
 
-**Figure 31: Edit Description Command Sequence Diagram**
+**Figure 9: Edit Description Command Sequence Diagram**
 ![Edit Description Command Sequence Diagram](diagrams/EditDescriptionCommandSequenceDiagram.png)
 
 ---
@@ -147,7 +153,7 @@ The edit-description mechanism is handled by the `EditDescriptionCommand` class.
 
 The edit-price mechanism is handled by the `EditPriceCommand` class. It updates the price field of an existing item in the inventory.
 
-**Figure 32: Edit Price Command Class Diagram**
+**Figure 10: Edit Price Command Class Diagram**
 ![Edit Price Command Class Diagram](diagrams/EditPriceCommandClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -162,7 +168,7 @@ The edit-price mechanism is handled by the `EditPriceCommand` class. It updates 
    - Parses the text after `p/` as a `double`; if the value is negative, it throws `IllegalArgumentException` with `"Price cannot be negative."`.
 6. If validation passes, `EditPriceCommand` performs the same parse: splits on the first space, then on `p/`, converts the index to zero-based, and parses the new price as a `double`. It calls `items.getItem(index)` to retrieve the target `Item`, then calls `item.setPrice(newPrice)` to update it in-place. Finally, it calls `ui.showMessage("Item price updated: " + item)` to confirm the change to the user.
 
-**Figure 33: Edit Price Command Sequence Diagram**
+**Figure 11: Edit Price Command Sequence Diagram**
 ![Edit Price Command Sequence Diagram](diagrams/EditPriceCommandSequenceDiagram.png)
 
 ---
@@ -171,7 +177,7 @@ The edit-price mechanism is handled by the `EditPriceCommand` class. It updates 
 
 The edit-quantity mechanism is handled by the `EditQuantityCommand` class. It updates the quantity field of an existing item in the inventory.
 
-**Figure 34: Edit Quantity Command Class Diagram**
+**Figure 12: Edit Quantity Command Class Diagram**
 ![Edit Quantity Command Class Diagram](diagrams/EditQuantityCommandClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -186,14 +192,14 @@ The edit-quantity mechanism is handled by the `EditQuantityCommand` class. It up
    - Parses the text after `q/` as an integer; if the value is negative, it throws `IllegalArgumentException` with `"Quantity cannot be negative."`.
 6. If validation passes, `EditQuantityCommand` performs the same parse: splits on the first space, then on `q/`, converts the index to zero-based, and parses the new quantity as an integer. It calls `items.getItem(index)` to retrieve the target `Item`, then calls `item.setQuantity(newQuantity)` to update it in-place. Finally, it calls `ui.showMessage("Item quantity updated: " + item)` to confirm the change to the user.
 
-**Figure 35: Edit Quantity Command Sequence Diagram**
+**Figure 13: Edit Quantity Command Sequence Diagram**
 ![Edit Quantity Command Sequence Diagram](diagrams/EditQuantityCommandSequenceDiagram.png)
 
 ---
 
 ### Finding an Item
 
-**Figure 17: Find Command Class Diagram**
+**Figure 14: Find Command Class Diagram**
 ![Find Class Diagram](diagrams/FindClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -203,7 +209,7 @@ The edit-quantity mechanism is handled by the `EditQuantityCommand` class. It up
 4. The command iterates through the `ItemList`, retrieving each `Item` and checking if its description contains the target keyword.
 5. Matching items are immediately passed to the `Ui` to be displayed. If no items match by the end of the loop, a "not found" message is displayed instead.
 
-**Figure 18: Find Command Sequence Diagram**
+**Figure 15: Find Command Sequence Diagram**
 ![Find Sequence Diagram](diagrams/FindSequenceDiagram.png)
 
 ---
@@ -212,7 +218,7 @@ The edit-quantity mechanism is handled by the `EditQuantityCommand` class. It up
 
 The filter mechanism is handled by the `FilterCommand` class. It evaluates one or more field-operator-value predicates — joined by `AND` / `OR` — against every item in the inventory and displays all matching results.
 
-**Figure 19: Filter Command Class Diagram**
+**Figure 16: Filter Command Class Diagram**
 ![Filter Command Class Diagram](diagrams/FilterCommandClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -226,7 +232,7 @@ The filter mechanism is handled by the `FilterCommand` class. It evaluates one o
 8. `collectMatchingItems()` iterates every `Item` in the `ItemList`. For each item, `passesFilter()` checks whether it satisfies every predicate in at least one AND-group. Within a group, `evaluatePredicate()` resolves each field: `description` uses `String.compareTo`; `quantity` uses `Integer.compare`; `price` rounds both the item's stored price and the filter value to 2 decimal places via `Math.round(x * 100) / 100.0` and then uses `Double.compare`. The comparator result is tested against `=`, `<`, or `>` by `satisfiesOperator()`.
 9. If no items match, `Ui` displays `"No items match the given filter."`. Otherwise it displays `"Here are the filtered items:"` followed by a numbered list of matching items in their original inventory order.
 
-**Figure 20: Filter Command Sequence Diagram**
+**Figure 17: Filter Command Sequence Diagram**
 ![Filter Command Sequence Diagram](diagrams/FilterCommandSequenceDiagram.png)
 
 ---
@@ -235,7 +241,7 @@ The filter mechanism is handled by the `FilterCommand` class. It evaluates one o
 
 The transact mechanism is handled by the `TransactCommand` class. It updates an item's quantity and records the transaction.
 
-**Figure 21: Transact Command Class Diagram**
+**Figure 18: Transact Command Class Diagram**
 ![Transact Class Diagram](diagrams/TransactCommandClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -251,7 +257,7 @@ The transact mechanism is handled by the `TransactCommand` class. It updates an 
 8. `TransactionStorage.saveHistory()` records the transaction
 9. UI displays updated quantity
 
-**Figure 22: Transact Command Sequence Diagram**
+**Figure 19: Transact Command Sequence Diagram**
 ![Transact Sequence Diagram](diagrams/TransactCommandSequenceDiagram.png)
 
 ---
@@ -260,7 +266,7 @@ The transact mechanism is handled by the `TransactCommand` class. It updates an 
 
 The `ShowTransactionHistoryCommand` retrieves and displays all past transactions.
 
-**Figure 23: Show History Class Diagram**
+**Figure 20: Show History Class Diagram**
 ![Show History Class Diagram](diagrams/ShowTransactionHistoryCommandClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -271,26 +277,33 @@ The `ShowTransactionHistoryCommand` retrieves and displays all past transactions
 5. If empty → show message
 6. Otherwise → iterate and print all entries
 
-**Figure 24: Show History Sequence Diagram**
+**Figure 21: Show History Sequence Diagram**
 ![Show History Sequence Diagram](diagrams/ShowTransactionHistoryCommandSequenceDiagram.png)
 
 ### Viewing list of items in the inventory
-**Figure 25: List Command Class Diagram**
+
+The `ListCommand` class handles the mechanism of displaying the list of all items in the inventory to the user in the default or sorted order.
+
+**Figure 22: List Command Class Diagram**
 ![Show List Command Class Diagram](diagrams/ListCommandClassDiagram.png)
 
 **Step-by-step Execution:**
-1. When the user inputs `listItems`, the parser instantiates a new `ListCommand` with the raw input string.
+1. When the user inputs `listItems` or `listItems price high`, the parser instantiates a new `ListCommand` with the raw input string.
 2. The `execute` method of `ListCommand` is called.
 3. The `execute` method creates `ListCommandValidator` with the raw input string and calls the `validate` method.
 4. The `validate` method checks that the raw input string follows the correct format for `listItems` command. If the correct format is not followed, it will throw an `IllegalArgumentException` and halt the execution.
 5. Control is returned to the `execute` method which checks if the inventory list is empty and passes a message that the inventory is empty to the `ui` to display to the user.
-6. Otherwise, it passes the list of items in the inventory to the `ui` to display to the user.
+6. Otherwise, checks if the input contains descriptors for sorting. If it does, it retrieves the sorted list of items by the property and order given in the input and passes it to the `ui` to display to the user.
+7. Else, it passes the default order of the list of items to the `ui` to display to the user.
 
-**Figure 26: List Command Sequence Diagram**
+**Figure 23: List Command Sequence Diagram**
 ![List Command Sequence Diagram](diagrams/ListCommandSequenceDiagram.png)
 
-### Viewing help instructions of how to use commands
-**Figure 27: Help Command Sequence Diagram**
+### Viewing help messages of commands
+
+The `HelpCommand` class handles the mechanism of displaying all command names and their summaries or detailed instructions of a particular command indicated by the user.
+
+**Figure 24: Help Command Sequence Diagram**
 ![Show Help Command Class Diagram](diagrams/HelpCommandClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -302,7 +315,7 @@ The `ShowTransactionHistoryCommand` retrieves and displays all past transactions
     * If yes, then the detailed instruction of that particular command is passed to the `ui` to be displayed to the user.
     * If no, which means the user input is only `help`, then the command names and their summaries are passed to the `ui` to display to the user.
 
-**Figure 28: Help Command Sequence Diagram**
+**Figure 25: Help Command Sequence Diagram**
 ![Help Command Sequence Diagram](diagrams/HelpCommandSequenceDiagram.png)
 
 ---
@@ -310,7 +323,7 @@ The `ShowTransactionHistoryCommand` retrieves and displays all past transactions
 
 The storage system is responsible for persisting both inventory data and transaction history.
 
-**Figure 25: Storage Class Diagram**
+**Figure 26: Storage Class Diagram**
 ![Storage Class Diagram](diagrams/StorageClassDiagram.png)
 
 **Design breakdown:**
@@ -338,7 +351,7 @@ The storage system is responsible for persisting both inventory data and transac
 
 The autocompletion mechanism is handled by the `Autocompleter` class, which wraps a `Trie` data structure and integrates with JLine's completer API to provide real-time tab-completion of command keywords in interactive terminal sessions.
 
-**Figure 26: Autocompleter Class Diagram**
+**Figure 27: Autocompleter Class Diagram**
 
 ![Autocompleter Class Diagram](diagrams/AutocompleterClassDiagram.png)
 
@@ -361,7 +374,7 @@ The autocompletion mechanism is handled by the `Autocompleter` class, which wrap
 7. The list of matching keywords is returned to `Ui.complete()`, which wraps each keyword in a `Candidate` object and adds it to JLine's `candidates` list.
 8. JLine displays the candidates to the user in the terminal (inline if only one match, or as a menu if multiple).
 
-**Figure 27: Autocompleter Sequence Diagram**
+**Figure 28: Autocompleter Sequence Diagram**
 ![Autocompleter Sequence Diagram](diagrams/AutocompleterSequenceDiagram.png)
 
 ---
@@ -370,7 +383,7 @@ The autocompletion mechanism is handled by the `Autocompleter` class, which wrap
 
 When a user enters an unknown command, InventoryBRO attempts to detect whether it is a near-miss typo and suggests the closest known command.
 
-**Figure 28: Typo Detector Class Diagram**
+**Figure 29: Typo Detector Class Diagram**
 ![Typo Detector Class Diagram](diagrams/TypoDetectorClassDiagram.png)
 
 **Step-by-step Execution:**
@@ -378,11 +391,11 @@ When a user enters an unknown command, InventoryBRO attempts to detect whether i
 2. `Parser.parseCommand()` evaluates the first word against all known command keywords in the switch statement and returns `null` because no branch matches.
 3. `Parser.parse()` detects the `null` result and calls `handleUnknownCommand(line, ui)`.
 4. `handleUnknownCommand()` extracts the first word from the raw input and calls `TYPO_DETECTOR.findClosestMatch(firstWord)`.
-5. `TypoDetector.findClosestMatch()` converts the input to lowercase and iterates over `KNOWN_COMMANDS` (`addItem`, `deleteItem`, `editItem`, `transact`, `listItems`, `help`, `exit`). For each known command it calls `calculateWeightedEditDistance()`, which uses dynamic programming with QWERTY keyboard Manhattan distance as the substitution cost: adjacent keys on the same row cost less than keys far apart, encouraging the algorithm to prefer swaps of physically close keys over arbitrary substitutions.
+5. `TypoDetector.findClosestMatch()` converts the input to lowercase and iterates over `KNOWN_COMMANDS` (`addItem`, `deleteItem`, `editDescription`, `editPrice`, `editQuantity`, `transact`, `filterItem`, `showHistory`, `listItems`, `findItem`, `help`, `exit`). For each known command it calls `calculateWeightedEditDistance()`, which uses dynamic programming with QWERTY keyboard Manhattan distance as the substitution cost: adjacent keys on the same row cost less than keys far apart, encouraging the algorithm to prefer swaps of physically close keys over arbitrary substitutions.
 6. After scoring all commands, `findClosestMatch()` calls `isBelowTypoThreshold()` on the best candidate. The threshold is `TYPO_THRESHOLD_FACTOR (0.2) * max(inputLength, commandLength)`. If the best distance is below this threshold the command name is returned as a non-empty `Optional`; otherwise an empty `Optional` is returned.
 7. Back in `handleUnknownCommand()`, if the `Optional` is present, `ui.showMessage("Do you mean " + suggestion + "?")` prompts the user with the suggested correction. If no command qualifies, `ui.showError(...)` displays the full list of valid commands.
 
-**Figure 29: Typo Detector Sequence Diagram**
+**Figure 30: Typo Detector Sequence Diagram**
 ![Typo Detector Sequence Diagram](diagrams/TypoDetectorSequenceDiagram.png)
 
 ---
@@ -418,20 +431,21 @@ accuracy (clear, structured output)
 
 ## User Stories
 
-| Version | As a ...    | I want to ...                                     | So that I can ...                                           |
-|---------|-------------|---------------------------------------------------|-------------------------------------------------------------|
-| v1.0    | new user    | see usage instructions                            | refer to them when I forget how to use the application      |
-| v1.0    | store owner | add items                                         | keep track of new products in my inventory                  |
-| v1.0    | store owner | delete items                                      | remove products that are no longer sold                     |
-| v1.0    | store owner | edit item details                                 | update product name or quantity when needed                 |
-| v1.0    | store owner | view all items                                    | know what products I currently have                         |
-| v1.0    | store owner | update item quantity via transactions             | record sales or restocking accurately                       |
-| v1.0    | store owner | exit the application                              | safely close the program after use                         |
-| v2.0    | store owner | find items by keyword                             | locate items quickly without scanning the full list         |
-| v2.0    | store owner | view transaction history                          | review past transactions for tracking and reference         |
-| v2.0    | store owner | have my inventory automatically saved             | avoid losing data when I close the application              |
-| v2.0    | store owner | load previously saved inventory                   | continue managing my shop from where I left off             |
-| v2.0    | store owner | view detailed instructions for a specific command | learn how to use a command correctly                        |
+| Version | As a ...    | I want to ...                                     | So that I can ...                                            |
+|---------|-------------|---------------------------------------------------|--------------------------------------------------------------|
+| v1.0    | new user    | see usage instructions                            | refer to them when I forget how to use the application       |
+| v1.0    | store owner | add items                                         | keep track of new products in my inventory                   |
+| v1.0    | store owner | delete items                                      | remove products that are no longer sold                      |
+| v1.0    | store owner | edit item details                                 | update product name or quantity when needed                  |
+| v1.0    | store owner | view all items                                    | know information of products I currently have                |
+| v1.0    | store owner | update item quantity via transactions             | record sales or restocking accurately                        |
+| v1.0    | store owner | exit the application                              | safely close the program after use                           |
+| v2.0    | store owner | find items by keyword                             | locate items quickly without scanning the full list          |
+| v2.0    | store owner | view transaction history                          | review past transactions for tracking and reference          |
+| v2.0    | store owner | have my inventory automatically saved             | avoid losing data when I close the application               |
+| v2.0    | store owner | load previously saved inventory                   | continue managing my shop from where I left off              |
+| v2.0    | store owner | view a sorted list of items                       | quickly view which items have, for example, lower quantities |
+| v2.0    | store owner | view detailed instructions for a specific command | learn how to use a command correctly                         |
 
 ---
 

@@ -4,6 +4,27 @@
 
 If you prefer typing commands instead of clicking buttons, InventoryBRO allows you to manage your stock quickly, reliably, and precisely.
 
+* [Quick Start](#quick-start)
+* [Notes ABout the Command Format](#notes-about-command-format)
+* [Smart Features](#smart-features)
+* [Feature List (v2.0)](#feature-list-v20)
+   1. [Adding an Item: `addItem`](#1-adding-an-item-additem)
+   2. [Deleting an Item: `deleteItem`](#2-deleting-an-item-deleteitem)
+   3. [Editing an Item's Description: `editDescription`](#3-editing-an-items-description-editdescription)
+   4. [Editing an Item's Price: `editPrice`](#4-editing-an-items-price-editprice)
+   5. [Editing an Item's Quantity: `editQuantity`](#5-editing-an-items-quantity-editquantity)
+   6. [Viewing All Items: `listItems`](#6-viewing-all-items-listitems)
+   7. [Finding an Item: `findItem`](#7-finding-an-item-finditem)
+   8. [Filtering Items: `filterItem`](#8-filtering-items-filteritem)
+   9. [Recording a Transaction: `transact`](#9-recording-a-transaction-transact)
+   10. [Viewing Transaction History: `showHistory`](#10-viewing-transaction-history-showhistory)
+   11. [Getting Help: `help`](#11-getting-help-help)
+   12. [Exiting the Program: `exit`](#12-exiting-the-program-exit)
+* [Saving Data](#saving-data)
+* [Command Autocompletion](#command-autocompletion)
+* [Typo Detection](#typo-detection)
+* [Command Summary](#command-summary)
+* [Scope of v2.0](#scope-of-v20)
 ---
 
 ## Quick Start
@@ -95,24 +116,27 @@ Updates the quantity of an existing item in the inventory.
   ```
 
 ### 6. Viewing All Items: `listItems`
-Displays a numbered list of all items currently in your inventory.
+Displays a chronologically ordered numbered list of all items currently in your inventory. Users can also indicate to view a sorted list of items by an item property and order of their choice. The properties that the items can be sorted by are `quantity` and `price` and the order which they can be sorted in are `high` and `low` to show the item with the highest and lowest of that property first respectively. 
 
-* **Format:** `listItems` or `listItems [FIELD] [ORDER]`
-* **Examples and output:**
+For example, to view the list sorted based on the descending order of item quantity, such that it the item with the highest quantity is displayed first, users can enter `listItems quantity high`.
+
+* **Format:** `listItems` or `listItems [PROPERTY] [ORDER]`
+* **Example 1 (chronological order):** `listItems`
   ```text
-  > listItems
   Here are your current inventory items:
   1. Coke Can (Quantity: 50, Price: $2.00)
   2. Sprite Bottle (Quantity: 30, Price: $1.00)
   3. Potato Chips (Quantity: 20, Price: $3.00)
-  
-  > listItems quantity high
+  ```
+* **Example 2 (sorted by the property `quantity` and order `high`):** `listItems quantity high`
+  ```text
   Here are your current inventory items based on quantity in descending order:
   1. Coke Can (Quantity: 50, Price: $2.00)
   2. Potato Chips (Quantity: 20, Price: $3.00)
   3. Sprite Bottle (Quantity: 30, Price: $1.00)
-  
-  > listItems price low
+  ```
+* **Example 3 (sorted by the property: `price` and order: `low`):** `listItems price low`
+```text
   Here are your current inventory items based on price in ascending order:
   1. Sprite Bottle (Quantity: 30, Price: $1.00)
   2. Coke Can (Quantity: 50, Price: $2.00)
@@ -251,7 +275,7 @@ InventoryBRO automatically saves your data to the hard disk whenever:
 * An item is deleted
 * A transaction is recorded
 
-There is **no need to manually save**. Data is stored seamlessly in `./data/inventorybro.txt`. If the folder or file does not exist, InventoryBRO will automatically create it for you upon startup.
+There is **no need to manually save**. Data is stored seamlessly in `./data/inventory.txt` and `./data/transactions.txt`. If the folder or file does not exist, InventoryBRO will automatically create it for you upon startup.
 
 ---
 
@@ -306,19 +330,19 @@ If you accidentally misspell a command, InventoryBRO will attempt to detect the 
 
 ## Command Summary
 
-| Action | Format | Example |
-| :--- | :--- | :--- |
-| **Add item** | `addItem d/NAME q/QUANTITY p/PRICE` | `addItem d/Coke q/50 p/1.50` |
-| **Delete item** | `deleteItem INDEX` | `deleteItem 2` |
-| **Edit description** | `editDescription INDEX d/NEW_DESCRIPTION` | `editDescription 1 d/Coke Can` |
-| **Edit price** | `editPrice INDEX p/NEW_PRICE` | `editPrice 1 p/2.50` |
-| **Edit quantity** | `editQuantity INDEX q/NEW_QUANTITY` | `editQuantity 1 q/100` |
-| **List items** | `listItems` | `listItems` |
-| **Find item** | `findItem KEYWORD` | `findItem apple` |
-| **Filter items** | `filterItem FIELD OP VALUE [AND\|OR ...]` | `filterItem quantity > 10` |
-| **Record transaction** | `transact INDEX q/CHANGE` | `transact 1 q/-3` |
-| **Get Help** | `help` | `help` |
-| **Exit** | `exit` | `exit` |
+| Action                 | Format                                                                         | Example                                   |
+|:-----------------------|:-------------------------------------------------------------------------------|:------------------------------------------|
+| **Add item**           | `addItem d/NAME q/QUANTITY p/PRICE`                                            | `addItem d/Coke q/50 p/1.50`              |
+| **Delete item**        | `deleteItem INDEX`                                                             | `deleteItem 2`                            |
+| **Edit description**   | `editDescription INDEX d/NEW_DESCRIPTION`                                      | `editDescription 1 d/Coke Can`            |
+| **Edit price**         | `editPrice INDEX p/NEW_PRICE`                                                  | `editPrice 1 p/2.50`                      |
+| **Edit quantity**      | `editQuantity INDEX q/NEW_QUANTITY`                                            | `editQuantity 1 q/100`                    |
+| **List items**         | `listItems` - chronological order <br/>`listItems [property] [order]` - sorted | `listItems`<br/>`listItems quantity high` |
+| **Find item**          | `findItem KEYWORD`                                                             | `findItem apple`                          |
+| **Filter items**       | `filterItem FIELD OP VALUE [AND\|OR ...]`                                      | `filterItem quantity > 10`                |
+| **Record transaction** | `transact INDEX q/CHANGE`                                                      | `transact 1 q/-3`                         |
+| **Get Help**           | `help`                                                                         | `help`                                    |
+| **Exit**               | `exit`                                                                         | `exit`                                    |
 
 ---
 

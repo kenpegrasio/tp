@@ -46,27 +46,32 @@ alt List is empty
     Ui --> ListCommand
     deactivate Ui
 else List is not empty
+    opt 'property' and 'order' to sort list by are indicated
+        ListCommand -> ItemList : getSortedItems(property, order)
+        activate ItemList
+        ItemList -> ListCommand : sortedItems
+        deactivate ItemList
+    end
     ListCommand -> Ui : showMessage("Here are your current inventory items:")
     activate Ui
     Ui --> ListCommand
     deactivate Ui
+end
+loop sortItems
+    ListCommand -> ItemList : size()
+    activate ItemList
+    ItemList --> ListCommand : size
+    deactivate ItemList
 
-    loop items
-        ListCommand -> ItemList : size()
-        activate ItemList
-        ItemList --> ListCommand : size
-        deactivate ItemList
+    ListCommand -> ItemList : getItem(listIndex)
+    activate ItemList
+    ItemList --> ListCommand : item
+    deactivate ItemList
 
-        ListCommand -> ItemList : getItem(listIndex)
-        activate ItemList
-        ItemList --> ListCommand : item
-        deactivate ItemList
-
-        ListCommand -> Ui : showMessage(itemDetails)
-        activate Ui
-        Ui --> ListCommand
-        deactivate Ui
-    end
+    ListCommand -> Ui : showMessage(itemDetails)
+    activate Ui
+    Ui --> ListCommand
+    deactivate Ui
 end
 
 ListCommand --> Parser

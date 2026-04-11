@@ -235,10 +235,14 @@ public class HelpCommand implements Command {
         new HelpCommandValidator(input).validate(items);
 
         String[] words = input.split(" ");
-        String info;
+
+        assert words.length <= 2 : "Input should have at most 2 words";
+
+        String info = "";
+
         if (words.length == 1) {
             info = HELPSUMMARYMESSAGE;
-        } else {
+        } else if (words.length == 2) {
             info = COMMANDMESSAGES.get(words[1]);
         }
 
