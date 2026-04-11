@@ -22,6 +22,6 @@ InventoryBro is an inventory management tracking application interacted via a CL
 * Contributions to the DG:
   * Sections:
     * Added: Implementation - Viewing list of items in the inventory, Implementation - Viewing help messages of commands
-    * Updated: Product scope - User Stories, Product scope - Instructions for manual testing
+    * Updated: Product scope - User Stories
   * UML diagrams:
     * Added: ListCommand class diagram, ListCommand sequence diagram, HelpCommand class diagram, HelpCommand sequence diagram
