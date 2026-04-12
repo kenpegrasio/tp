@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import seedu.inventorybro.Item;
 import seedu.inventorybro.ItemList;
+import seedu.inventorybro.CategoryList;
 import seedu.inventorybro.Ui;
 import seedu.inventorybro.validator.FilterCommandValidator;
 
@@ -49,7 +50,7 @@ public class FilterCommand implements Command {
      * @throws IllegalArgumentException if the input does not match the expected format.
      */
     @Override
-    public void execute(ItemList items, Ui ui) {
+    public void execute(ItemList items, CategoryList categories, Ui ui) {
         assert items != null : "ItemList should not be null";
         assert ui != null : "Ui should not be null";
 

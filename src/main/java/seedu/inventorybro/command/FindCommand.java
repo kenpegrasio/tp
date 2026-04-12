@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import seedu.inventorybro.Item;
 import seedu.inventorybro.ItemList;
+import seedu.inventorybro.CategoryList;
 import seedu.inventorybro.Ui;
 import seedu.inventorybro.validator.FindCommandValidator;
 
@@ -33,7 +34,7 @@ public class FindCommand implements Command {
      * @param ui    The UI object to handle user output.
      */
     @Override
-    public void execute(ItemList items, Ui ui) {
+    public void execute(ItemList items, CategoryList categories, Ui ui) {
         assert items != null : "ItemList should not be null";
         assert ui != null : "Ui should not be null";
 

@@ -1,6 +1,7 @@
 package seedu.inventorybro.command;
 
 import seedu.inventorybro.ItemList;
+import seedu.inventorybro.CategoryList;
 import seedu.inventorybro.Ui;
 import seedu.inventorybro.storage.TransactionStorage;
 import seedu.inventorybro.validator.ShowTransactionHistoryCommandValidator;
@@ -41,7 +42,7 @@ public class ShowTransactionHistoryCommand implements Command {
     }
 
     @Override
-    public void execute(ItemList items, Ui ui) {
+    public void execute(ItemList items, CategoryList categories, Ui ui) {
         new ShowTransactionHistoryCommandValidator(input).validate(items);
         ArrayList<String> history = transactionStorage.load();
 

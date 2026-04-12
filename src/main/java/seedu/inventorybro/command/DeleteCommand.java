@@ -2,6 +2,7 @@ package seedu.inventorybro.command;
 
 import seedu.inventorybro.Item;
 import seedu.inventorybro.ItemList;
+import seedu.inventorybro.CategoryList;
 import seedu.inventorybro.Ui;
 import seedu.inventorybro.validator.DeleteCommandValidator;
 
@@ -27,7 +28,7 @@ public class DeleteCommand implements Command {
      */
     //@@author fmohamedfaras
     @Override
-    public void execute(ItemList items, Ui ui) {
+    public void execute(ItemList items, CategoryList categories, Ui ui) {
         new DeleteCommandValidator(input).validate(items);
 
         String[] words = input.split(" ");
