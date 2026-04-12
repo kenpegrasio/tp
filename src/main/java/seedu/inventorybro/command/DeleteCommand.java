@@ -29,7 +29,7 @@ public class DeleteCommand implements Command {
     //@@author fmohamedfaras
     @Override
     public void execute(ItemList items, CategoryList categories, Ui ui) {
-        new DeleteCommandValidator(input).validate(items);
+        new DeleteCommandValidator(input).validate(items, categories);
 
         String[] words = input.split(" ");
         int index = Integer.parseInt(words[1]) - 1;

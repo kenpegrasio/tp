@@ -43,7 +43,7 @@ public class ShowTransactionHistoryCommand implements Command {
 
     @Override
     public void execute(ItemList items, CategoryList categories, Ui ui) {
-        new ShowTransactionHistoryCommandValidator(input).validate(items);
+        new ShowTransactionHistoryCommandValidator(input).validate(items, categories);
         ArrayList<String> history = transactionStorage.load();
 
         if (history.isEmpty()) {

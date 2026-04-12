@@ -38,7 +38,7 @@ public class FindCommand implements Command {
         assert items != null : "ItemList should not be null";
         assert ui != null : "Ui should not be null";
 
-        new FindCommandValidator(input).validate(items);
+        new FindCommandValidator(input).validate(items, categories);
 
         Matcher matcher = FIND_COMMAND_PATTERN.matcher(input);
         matcher.matches();

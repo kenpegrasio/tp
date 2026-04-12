@@ -54,7 +54,7 @@ public class FilterCommand implements Command {
         assert items != null : "ItemList should not be null";
         assert ui != null : "Ui should not be null";
 
-        new FilterCommandValidator(input).validate(items);
+        new FilterCommandValidator(input).validate(items, categories);
 
         String logic = input.substring("filterItem ".length()).trim();
         Matcher matcher = PREDICATE_PATTERN.matcher(logic);

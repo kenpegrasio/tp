@@ -45,7 +45,7 @@ public class TransactCommand implements Command {
 
         logger.log(Level.INFO, "Executing transact command: {0}", input);
 
-        new TransactCommandValidator(input).validate(items);
+        new TransactCommandValidator(input).validate(items, categories);
 
         String[] words = input.split(" ", 2);
         String[] digits = words[1].split("q/", 2);

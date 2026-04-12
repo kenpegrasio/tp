@@ -35,7 +35,7 @@ public class ListCommand implements Command {
      */
     @Override
     public void execute(ItemList items, CategoryList categories, Ui ui) {
-        new ListCommandValidator(input).validate(items);
+        new ListCommandValidator(input).validate(items, categories);
 
         if (items.isEmpty()) {
             ui.showMessage("Your inventory is empty.");

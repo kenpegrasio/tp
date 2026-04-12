@@ -233,7 +233,7 @@ public class HelpCommand implements Command {
      */
     @Override
     public void execute(ItemList items, CategoryList categories, Ui ui) {
-        new HelpCommandValidator(input).validate(items);
+        new HelpCommandValidator(input).validate(items, categories);
 
         String[] words = input.split(" ");
 

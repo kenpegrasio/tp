@@ -2,6 +2,7 @@ package seedu.inventorybro.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import seedu.inventorybro.ItemList;
 import seedu.inventorybro.CategoryList;
 

@@ -34,7 +34,7 @@ public class EditPriceCommand implements Command {
         assert items != null : "ItemList should not be null";
         assert ui != null : "Ui should not be null";
 
-        new EditPriceCommandValidator(input).validate(items);
+        new EditPriceCommandValidator(input).validate(items, categories);
 
         String[] words = input.split(" ", 2);
         String[] parts = words[1].split("p/", 2);
