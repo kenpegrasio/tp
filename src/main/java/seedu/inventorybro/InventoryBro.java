@@ -15,7 +15,7 @@ public class InventoryBro {
     public InventoryBro() {
         ui = new Ui();
         categories = new CategoryList();
-        arrayStorage = new ArrayStorage();
+        arrayStorage = new ArrayStorage(categories);
         //transactionStorage = new TransactionStorage();
         items = arrayStorage.loadItemList();
     }
