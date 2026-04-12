@@ -74,6 +74,9 @@ class ListCommandTest {
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Verifies that a sorted list by quantity in a decreasing order is correctly displayed to the user.
+     */
     @Test
     void execute_validUserInputQuantityHighOrder_success() {
         ItemList items = new ItemList();
@@ -98,6 +101,9 @@ class ListCommandTest {
         assertEquals(expectedOutput, outContent.toString());
     }
 
+    /**
+     * Verifies that a sorted list by quantity in an increasing order is correctly displayed to the user.
+     */
     @Test
     void execute_validUserInputQuantityLowOrder_success() {
         ItemList items = new ItemList();
