@@ -36,11 +36,12 @@ public class EditQuantityCommandValidator implements Validator {
             }
 
             int newQuantity = Integer.parseInt(parts[1].trim());
+
             if (newQuantity < 0) {
                 throw new IllegalArgumentException("Quantity cannot be negative.");
             }
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Index and quantity must be numbers.");
+            throw new IllegalArgumentException("Index and quantity must be numbers and not excessively large.");
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
