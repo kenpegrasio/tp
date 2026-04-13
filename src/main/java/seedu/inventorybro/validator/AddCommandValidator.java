@@ -50,6 +50,11 @@ public class AddCommandValidator implements Validator {
             throw new IllegalArgumentException("Price must be at least 0.01 when rounded");
         }
         String name = matcher.group(1).trim();
+        if (name.contains("d/") || name.contains("q/") || name.contains("p/")) {
+            throw new IllegalArgumentException(
+                    "Duplicate parameter detected. Use: addItem d/NAME q/INITIAL_QUANTITY p/PRICE"
+            );
+        }
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Item name cannot be empty.");
         }
