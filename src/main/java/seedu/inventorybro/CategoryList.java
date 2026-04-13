@@ -45,7 +45,18 @@ public class CategoryList {
     }
 
     /**
-     * Returns the full list of categories.
+     * Removes a category from the list by its name.
+     *
+     * @param categoryName The name of the category to remove.
+     */
+    public void removeCategory(String categoryName) {
+        categories.removeIf(category -> category.getName().equalsIgnoreCase(categoryName.trim()));
+    }
+
+    /**
+     * Returns the underlying list of all categories.
+     *
+     * @return The ArrayList of categories.
      */
     public ArrayList<Category> getCategories() {
         return categories;

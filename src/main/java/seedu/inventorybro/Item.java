@@ -109,7 +109,7 @@ public class Item {
     /**
      * Sets the item category.
      *
-     * @param category The price of item.
+     * @param category The category of item.
      */
     public void setCategory(Category category) {
         assert category != null : "Category should not be null";
