@@ -25,12 +25,12 @@ public class DeleteCategoryCommandValidator implements Validator {
 
         if (targetCategory.equalsIgnoreCase("Others")) {
             throw new IllegalArgumentException(
-                    "Error: The [OTHERS] category is the default system category and cannot be deleted.");
+                    "The [OTHERS] category is the default system category and cannot be deleted.");
         }
 
         if (!categories.containsCategory(targetCategory)) {
             throw new IllegalArgumentException(
-                    "Error: The category [" + targetCategory.toUpperCase() + "] does not exist.");
+                    "The category [" + targetCategory.toUpperCase() + "] does not exist.");
         }
     }
 }

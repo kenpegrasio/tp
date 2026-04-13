@@ -69,7 +69,6 @@ class TransactCommandTest {
         ItemList items = new ItemList();
         items.addItem(new Item("Coke Can", 50, 0.0, categories.getCategory("Others")));
 
-        // Now the test officially expects the Validator to throw an error!
         assertThrows(IllegalArgumentException.class, () -> {
             new TransactCommand("transact 1 q/0", stub).execute(items, categories, ui);
         });
