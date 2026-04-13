@@ -45,17 +45,12 @@ InventoryBRO is a CLI-based inventory management application for small business 
 #### 5. Inventory Storage (`ArrayStorage`)
 
 *Handles persistence of inventory items with encode/decode and category consistency checks.*
-
-
 **Files:** `ArrayStorage.java`
 
----
 
 #### 6. Storage Test Stubs
 
 *Mock storage layer for isolated and deterministic testing.*
-
-
 **Files:**
 `TransactionStorageStub.java`,`TransactionStorageHistoryStub.java`,`ArrayStorageStub.java`
 
