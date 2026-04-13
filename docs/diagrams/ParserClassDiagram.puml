@@ -38,12 +38,12 @@ class ItemList
 class Ui
 
 ' Relationships
-Parser -> Command : creates >
-Parser --> TypoDetector : uses >
-Parser --> Ui : uses >
+Parser -> Command : <<creates>>
+Parser --> TypoDetector : <<uses>>
+Parser --> Ui : <<uses>>
 Parser -right-> ItemList : passes >
 
-Command --> Ui : uses >
+Command --> Ui : <<uses>>
 Command -left-> ItemList : passes >
 
 AddCommand ...down|> Command
@@ -51,7 +51,7 @@ DeleteCommand ..down|> Command
 EditDescriptionCommand ...down|> Command
 EditPriceCommand ..down|> Command
 EditQuantityCommand ...left|> Command
-TransactCommand ..up|> Command
+TransactCommand ...down|> Command
 ShowTransactionHistoryCommand ...up|> Command
 FindCommand ..up|> Command
 ListCommand ...up|> Command

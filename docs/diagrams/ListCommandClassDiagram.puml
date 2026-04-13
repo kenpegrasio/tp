@@ -38,8 +38,8 @@ class Ui {
 Command <|.. ListCommand
 Validator <|.. ListCommandValidator
 
-ListCommand ..> ListCommandValidator : creates >
+ListCommand ..> ListCommandValidator : <<creates>>
 ListCommand ..> ItemList : reads >
-ListCommand ..> Ui : uses >
+ListCommand ..> Ui : <<uses>>
 
 @enduml

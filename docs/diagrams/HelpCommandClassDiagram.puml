@@ -2,6 +2,7 @@
 skinparam monochrome true
 skinparam shadowing false
 skinparam classAttributeIconSize 0
+skinparam classFontSize 20
 hide circle
 
 interface Command <<interface>> {
@@ -40,6 +41,26 @@ class HelpCommandValidator {
     - isValidCommand(word: String): boolean
 }
 
+enum CommandWord <<enumeration>> {
+    - word: String
+    --
+    - CommandWord(word: String): String
+    + getWord(): String
+    --
+    ADD_ITEM("addItem"),
+    DELETE_ITEM("deleteItem")
+    EDIT_DESCRIPTION("editDescription")
+    EDIT_PRICE("editPrice")
+    EDIT_QUANTITY("editQuantity")
+    TRANSACT("transact")
+    SHOW_HISTORY("showHistory")
+    LIST_ITEMS("listItems")
+    HELP("help")
+    EXIT("exit")
+    FIND_ITEM("findItem")
+    FILTER_ITEM("filterItem")
+}
+
 class ItemList
 
 class Ui {
@@ -49,10 +70,11 @@ class Ui {
 Command <|.. HelpCommand
 Validator <|.. HelpCommandValidator
 
-HelpCommand .right.> HelpCommandValidator : creates >
-HelpCommand ..> Ui : uses >
-HelpCommand ..> ItemList : uses >
+HelpCommand .right.> HelpCommandValidator : <<creates>>
+HelpCommand ..> Ui : <<uses>>
+HelpCommand ..> ItemList : <<uses>>
 
-HelpCommandValidator ..> ItemList : uses >
+HelpCommandValidator ..> CommandWord : <<uses>>
+HelpCommandValidator ..> ItemList : <<uses>>
 
 @enduml

@@ -35,7 +35,7 @@ Command <|.. FindCommand
 
 FindCommand ..> ItemList : reads >
 FindCommand ..> Item : reads >
-FindCommand ..> Ui : uses >
+FindCommand ..> Ui : <<uses>>
 
 note right of FindCommand
   execute() iterates through the

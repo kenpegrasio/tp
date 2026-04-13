@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/class-diagram
+!include <office/Users/user>
+
+hide circle
+
+package seedu.inventorybro {
+    class Main #orchid
+    class Ui #mediumpurple
+    class Parser #palegoldenrod
+    package autocomplete #powderblue {
+    }
+    class TypoDetector #limegreen
+    package command #dodgerblue {
+    }
+    package validator #coral {
+    }
+    class ItemList #moccasin
+    package storage #lightgreen{
+    }
+}
+
+class "<$user>" as User #mediumblue
+
+User ..> Main
+Main ..> Parser
+Main --> storage
+Main --> ItemList
+Main --> Ui
+Parser ..> command
+Parser ..> Ui
+Parser --> TypoDetector
+autocomplete -up-* Ui
+command ..> validator
+command ..> ItemList
+command --> storage
+storage ..> ItemList
+
+@enduml
