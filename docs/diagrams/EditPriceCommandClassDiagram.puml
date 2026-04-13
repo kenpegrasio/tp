@@ -42,6 +42,6 @@ Validator <|.. EditPriceCommandValidator
 EditPriceCommand ..> EditPriceCommandValidator : creates/validates >
 EditPriceCommand ..> ItemList : reads >
 EditPriceCommand ..> Item : modifies >
-EditPriceCommand ..> Ui : uses >
+EditPriceCommand ..> Ui : <<uses>>
 
 @enduml

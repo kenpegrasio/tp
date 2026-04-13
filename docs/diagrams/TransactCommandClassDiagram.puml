@@ -45,13 +45,13 @@ class Ui {
 
 Command <|.. TransactCommand
 
-TransactCommand .right.> TransactCommandValidator : creates >
+TransactCommand .right.> TransactCommandValidator : <<creates>>
 TransactCommandValidator .up.|> Validator
-TransactCommandValidator ..> ItemList : uses >
-TransactCommandValidator ..> Item : uses >
+TransactCommandValidator ..> ItemList : <<uses>>
+TransactCommandValidator ..> Item : <<uses>>
 TransactCommand .> Item : modifies >
-TransactCommand ..> ItemList : uses >
-TransactCommand ..> TransactionStorage : uses >
-TransactCommand ..> Ui : uses >
+TransactCommand ..> ItemList : <<uses>>
+TransactCommand ..> TransactionStorage : <<uses>>
+TransactCommand ..> Ui : <<uses>>
 
 @enduml

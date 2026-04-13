@@ -4,11 +4,14 @@ import java.util.Optional;
 
 import seedu.inventorybro.command.AddCommand;
 import seedu.inventorybro.command.AddCategoryCommand;
+import seedu.inventorybro.command.DeleteCategoryCommand;
+import seedu.inventorybro.command.ListCategoriesCommand;
 import seedu.inventorybro.command.Command;
 import seedu.inventorybro.command.DeleteCommand;
 import seedu.inventorybro.command.EditDescriptionCommand;
 import seedu.inventorybro.command.EditPriceCommand;
 import seedu.inventorybro.command.EditQuantityCommand;
+import seedu.inventorybro.command.EditCategoryCommand;
 import seedu.inventorybro.command.ExitCommand;
 import seedu.inventorybro.command.FilterCommand;
 import seedu.inventorybro.command.FindCommand;
@@ -50,6 +53,8 @@ public class Parser {
             return new EditDescriptionCommand(trimmedLine);
         case "editprice":
             return new EditPriceCommand(trimmedLine);
+        case "editcategory":
+            return new EditCategoryCommand(trimmedLine);
         case "transact":
             return new TransactCommand(trimmedLine);
         case "filteritem":
@@ -62,6 +67,10 @@ public class Parser {
             return new FindCommand(trimmedLine);
         case "addcategory":
             return new AddCategoryCommand(trimmedLine);
+        case "listcategories":
+            return new ListCategoriesCommand(trimmedLine);
+        case "deletecategory":
+            return new DeleteCategoryCommand(trimmedLine);
         case "help":
             return new HelpCommand(trimmedLine);
         case "exit":
@@ -77,7 +86,8 @@ public class Parser {
         if (suggestion.isPresent()) {
             ui.showMessage("Do you mean " + suggestion.get() + "?");
         } else {
-            ui.showError("Invalid command, please try addCategory, addItem, deleteItem, editDescription, editPrice," +
+            ui.showError("Invalid command, please try addCategory, deleteCategory, " +
+                    "listCategories, addItem, deleteItem, editDescription, editPrice," +
                     " editQuantity, transact, showHistory, listItems, help, exit");
         }
     }

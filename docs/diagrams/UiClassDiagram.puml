@@ -14,7 +14,7 @@ hide circle
 
         + Ui()
         + showWelcome(): void
-        + showLine(): voidx
+        + showLine(): void
         + readCommand(): String
         + showMessage(message: String): void
         + showError(message: String): void
@@ -38,8 +38,8 @@ hide circle
 
 ' Relationships
 Ui *--> "1" Autocompleter : creates/owns >
-Ui o--> "0..1" LineReader : uses (if interactive) >
-Ui o--> "0..1" BufferedReader : uses (if fallback) >
+Ui o--> "0..1" LineReader : <<uses>> (if interactive)
+Ui o--> "0..1" BufferedReader : <<uses>> (if fallback)
 
 note right of Ui
   The constructor checks System.console()

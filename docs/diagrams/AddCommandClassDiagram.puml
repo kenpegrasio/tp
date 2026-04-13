@@ -56,11 +56,11 @@ Command <|.. AddCommand
 Validator <|.. AddCommandValidator
 Validator <|.. DuplicateItemValidator
 
-AddCommand ..> AddCommandValidator : creates >
-AddCommand ..> Item : creates >
+AddCommand ..> AddCommandValidator : <<creates>>
+AddCommand ..> Item : <<creates>>
 AddCommand ..> ItemList : modifies >
-AddCommand ..> Ui : uses >
-AddCommandValidator ..> DuplicateItemValidator : creates >
+AddCommand ..> Ui : <<uses>>
+AddCommandValidator ..> DuplicateItemValidator : <<creates>>
 DuplicateItemValidator ..> ItemList : reads >
 
 @enduml

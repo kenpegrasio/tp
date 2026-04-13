@@ -29,7 +29,7 @@ class Ui {
     + showError(message: String): void
 }
 
-Parser ..> TypoDetector : uses >
-Parser ..> Ui : uses >
+Parser --> TypoDetector
+Parser ..> Ui : <<uses>>
 
 @enduml

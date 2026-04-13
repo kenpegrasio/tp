@@ -36,9 +36,9 @@ class Ui {
 Command <|.. DeleteCommand
 Validator <|.. DeleteCommandValidator
 
-DeleteCommand ..> DeleteCommandValidator : creates >
+DeleteCommand ..> DeleteCommandValidator : <<creates>>
 DeleteCommand ..> ItemList : modifies >
-DeleteCommand ..> Ui : uses >
+DeleteCommand ..> Ui : <<uses>>
 DeleteCommandValidator ..> ItemList : reads >
 
 @enduml

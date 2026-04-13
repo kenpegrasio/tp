@@ -42,6 +42,6 @@ Validator <|.. EditQuantityCommandValidator
 EditQuantityCommand ..> EditQuantityCommandValidator : create/validates >
 EditQuantityCommand ..> ItemList : reads >
 EditQuantityCommand ..> Item : modifies >
-EditQuantityCommand ..> Ui : uses >
+EditQuantityCommand ..> Ui : <<uses>>
 
 @enduml

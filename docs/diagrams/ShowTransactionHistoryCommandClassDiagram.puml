@@ -32,8 +32,8 @@ class Ui {
 
 Command <|.. ShowTransactionHistoryCommand
 
-ShowTransactionHistoryCommand ..> ShowTransactionHistoryCommandValidator : creates >
-ShowTransactionHistoryCommand ..> TransactionStorage : uses >
-ShowTransactionHistoryCommand ..> Ui : uses >
+ShowTransactionHistoryCommand ..> ShowTransactionHistoryCommandValidator : <<creates>>
+ShowTransactionHistoryCommand ..> TransactionStorage : <<uses>>
+ShowTransactionHistoryCommand ..> Ui : <<uses>>
 
 @enduml

@@ -42,6 +42,6 @@ Validator <|.. EditDescriptionCommandValidator
 EditDescriptionCommand ..> EditDescriptionCommandValidator : creates/validates >
 EditDescriptionCommand ..> ItemList : reads >
 EditDescriptionCommand ..> Item : modifies >
-EditDescriptionCommand ..> Ui : uses >
+EditDescriptionCommand ..> Ui : <<uses>>
 
 @enduml

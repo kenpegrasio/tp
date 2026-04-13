@@ -109,13 +109,14 @@ public class Item {
     /**
      * Sets the item category.
      *
-     * @param category The price of item.
+     * @param category The category of item.
      */
     public void setCategory(Category category) {
         assert category != null : "Category should not be null";
         this.category = category;
     }
 
+    //@@author elliotjohnwu
     /**
      * Returns the item in save file format.
      *
@@ -133,7 +134,7 @@ public class Item {
     public String getDescription() {
         return description;
     }
-
+    //@@author
     /**
      * Returns the string of the item's description and quantity.
      *
