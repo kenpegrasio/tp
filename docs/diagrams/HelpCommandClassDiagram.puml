@@ -1,9 +1,10 @@
 @startuml
 skinparam monochrome true
 skinparam shadowing false
+skinparam classAttributeIconSize 0
 hide circle
 
-interface Command <<interface>>{
+interface Command <<interface>> {
     + execute(items: ItemList, ui: Ui): void
 }
 
@@ -11,9 +12,13 @@ class HelpCommand {
     {static} - HELPSUMMARYMESSAGE: String = "Command names and their summaries:..."
     {static} - HELPADDITEMMESSAGE: String = "addItem:..."
     {static} - HELPDELETEITEMMESSAGE: String = "deleteItem:..."
-    {static} - HELPEDITITEMMESSAGE: String = "editItem:..."
+    {static} - HELPEDITDESCRIPTIONMESSAGE: String = "editDescription:..."
+    {static} - HELPEDITPRICEMESSAGE: String = "editPrice:..."
+    {static} - HELPEDITQUANTITYMESSAGE: String = "editQuantity:..."
     {static} - HELPFINDITEMMESSAGE: String = "findItem:..."
+    {static} - HELPFILTERITEMMESSAGE: String = "filterItem:..."
     {static} - HELPTRANSACTMESSAGE: String = "transact:..."
+    {static} - HELPSHOWHISTORYMESSAGE: String = "showHistory:..."
     {static} - HELPLISTITEMSMESSAGE: String = "listItems:..."
     {static} - HELPHELPMESSAGE: String = "help:..."
     {static} - HELPEXITMESSAGE: String = "exit:..."
@@ -23,7 +28,7 @@ class HelpCommand {
     + execute(items: ItemList, ui: Ui): void
 }
 
-interface Validator <<interface>>{
+interface Validator <<interface>> {
     + validate(items: ItemList): void
 }
 
@@ -31,8 +36,11 @@ class HelpCommandValidator {
     - input: String
     + HelpCommandValidator(input: String)
     + validate(items: ItemList): void
-    - validateCommandSpecified(words: String[])
+    - validateCommandSpecified(words: String[]): void
+    - isValidCommand(word: String): boolean
 }
+
+class ItemList
 
 class Ui {
     + showMessage(message: String): void
@@ -41,7 +49,10 @@ class Ui {
 Command <|.. HelpCommand
 Validator <|.. HelpCommandValidator
 
-HelpCommand ..> HelpCommandValidator : creates
-HelpCommand ..> Ui : uses
+HelpCommand .right.> HelpCommandValidator : creates >
+HelpCommand ..> Ui : uses >
+HelpCommand ..> ItemList : uses >
+
+HelpCommandValidator ..> ItemList : uses >
 
 @enduml

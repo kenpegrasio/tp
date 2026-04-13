@@ -5,6 +5,7 @@ import static java.util.Map.entry;
 import java.util.Map;
 
 import seedu.inventorybro.ItemList;
+import seedu.inventorybro.CategoryList;
 import seedu.inventorybro.Ui;
 import seedu.inventorybro.validator.HelpCommandValidator;
 
@@ -231,14 +232,18 @@ public class HelpCommand implements Command {
      * @param ui    The ui object.
      */
     @Override
-    public void execute(ItemList items, Ui ui) {
-        new HelpCommandValidator(input).validate(items);
+    public void execute(ItemList items, CategoryList categories, Ui ui) {
+        new HelpCommandValidator(input).validate(items, categories);
 
         String[] words = input.split(" ");
-        String info;
+
+        assert words.length <= 2 : "Input should have at most 2 words";
+
+        String info = "";
+
         if (words.length == 1) {
             info = HELPSUMMARYMESSAGE;
-        } else {
+        } else if (words.length == 2) {
             info = COMMANDMESSAGES.get(words[1]);
         }
 

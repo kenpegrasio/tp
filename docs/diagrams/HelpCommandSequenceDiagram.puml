@@ -36,17 +36,16 @@ activate HelpCommandValidator
 HelpCommandValidator --> HelpCommand
 deactivate HelpCommandValidator
 
-alt Input is only 1 word
-    HelpCommand -> Ui : showMessage(info = HELPSUMMARYMESSAGE)
-    activate Ui
-    Ui --> HelpCommand
-    deactivate Ui
-else Input has a valid command provided
-    HelpCommand -> Ui : showMessage(info = COMMANDMESSAGES)
-    activate Ui
-    Ui --> HelpCommand
-    deactivate Ui
+alt Input is only "help"
+    HelpCommand -> HelpCommand : info = HELPSUMMARYMESSAGE
+else Input is "help [command_name]"
+    HelpCommand -> HelpCommand : info = COMMANDMESSAGES([command_name])
 end
+
+HelpCommand -> Ui : showMessage(info)
+activate Ui
+Ui --> HelpCommand
+deactivate Ui
 
 HelpCommand --> Parser
 deactivate HelpCommand
