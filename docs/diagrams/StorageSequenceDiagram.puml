@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
+
 
 skinparam monochrome true
 skinparam shadowing false
@@ -17,6 +17,10 @@ participant File
 InventoryBro -> ArrayStorage: saveArray(items)
 ArrayStorage -> Storage: saveArray(ArrayList<Item>)
 Storage -> File: write lines
+File --> Storage
+Storage --> ArrayStorage
+ArrayStorage --> InventoryBro
+
 
 == Load Inventory ==
 

@@ -5,13 +5,13 @@ skinparam monochrome true
 skinparam classAttributeIconSize 0
 hide circle
 
-abstract class Storage<T> {
+abstract class Storage {
     - filePath: String
     + saveArray(items: ArrayList<T>): void
     + saveHistory(item: T): void
     + load(): ArrayList<T>
-    # encode(item: T): String
-    # decode(line: String, lineNumber: int): T
+    + encode(item: T): String
+    + decode(line: String, lineNumber: int): T
 }
 
 class ArrayStorage {
