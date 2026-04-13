@@ -44,7 +44,6 @@ If you prefer typing commands instead of clicking buttons, InventoryBRO allows y
 * Words in `UPPER_CASE` represent parameters supplied by the user.
     * *Example:* `addItem d/NAME q/QUANTITY`
 * Parameters prefixed with letters (e.g., `d/`, `q/`, `p/`) must be included exactly as shown.
-* Parameters can be provided in any order unless stated otherwise.
 * Commands are **case-insensitive**. Typing `add` and `ADD` will both execute the same action.
 * **INDEX** refers to the number shown in the displayed item list and must be a positive integer (1, 2, 3, ...).
 
