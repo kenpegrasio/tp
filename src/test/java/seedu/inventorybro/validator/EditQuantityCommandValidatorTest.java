@@ -84,7 +84,7 @@ class EditQuantityCommandValidatorTest {
     void validate_nonNumericIndex_throwsNumberFormatMessage() {
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
                 new EditQuantityCommandValidator("editQuantity abc q/5").validate(items, categories));
-        assertEquals("Index and quantity must be numbers.", ex.getMessage());
+        assertEquals("Index and quantity must be numbers and not excessively large.", ex.getMessage());
     }
 
     @Test
@@ -98,13 +98,13 @@ class EditQuantityCommandValidatorTest {
     void validate_nonNumericQuantity_throwsNumberFormatMessage() {
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
                 new EditQuantityCommandValidator("editQuantity 1 q/abc").validate(items, categories));
-        assertEquals("Index and quantity must be numbers.", ex.getMessage());
+        assertEquals("Index and quantity must be numbers and not excessively large.", ex.getMessage());
     }
 
     @Test
     void validate_decimalQuantity_throwsNumberFormatMessage() {
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
                 new EditQuantityCommandValidator("editQuantity 1 q/1.5").validate(items, categories));
-        assertEquals("Index and quantity must be numbers.", ex.getMessage());
+        assertEquals("Index and quantity must be numbers and not excessively large.", ex.getMessage());
     }
 }

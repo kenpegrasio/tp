@@ -36,6 +36,15 @@ public class EditPriceCommandValidator implements Validator {
             }
 
             double newPrice = Double.parseDouble(parts[1].trim());
+
+            if (Double.isNaN(newPrice)) {
+                throw new IllegalArgumentException("Price must be a valid number, not 'NaN'.");
+            }
+
+            if (Double.isInfinite(newPrice)) {
+                throw new IllegalArgumentException("Price is too large to be processed by the system.");
+            }
+
             if (Math.round(newPrice * 100) <= 0) {
                 throw new IllegalArgumentException("Price must be at least 0.01 when rounded.");
             }

@@ -20,26 +20,20 @@ public class HelpCommand implements Command {
             Command names and their summaries:
             addItem:          Adds a new item of a given name, quantity, and price to the inventory list.
             deleteItem:       Deletes an item from the current inventory list.
-            editDescription:  Edits the description of an existing item in the inventory based on the
-                              item index. Existing description is updated to the provided input.
-            editPrice:        Edits the price of an existing item in the inventory based on the item
-                              index. Existing price is updated to the provided input.
-            editQuantity:     Edits the quantity of an existing item in the inventory based on the item
-                              index. Existing quantity is updated to the provided input.
-            findItem:         Finds an item in the current inventory list based on the keyword typed
-                              or displays message to the user that the inventory does not have item
-                              that matches keyword.
+            editDescription:  Edits the description of an existing item in the inventory.
+            editPrice:        Edits the price of an existing item in the inventory.
+            editQuantity:     Edits the quantity of an existing item in the inventory.
+            editCategory:     Moves an existing item to a different category.
+            addCategory:      Creates a new custom category.
+            deleteCategory:   Deletes a category and moves its items back to [OTHERS].
+            listCategories:   Displays all currently available categories.
+            findItem:         Finds an item in the current inventory list based on a keyword.
             filterItem:       Displays only the items that match one or more field-based conditions.
-                              Conditions can be combined using AND or OR operators.
             transact:         Updates stock quantities after a sale or restock.
-            showHistory:      Displays a complete, numbered list of all past transactions
-                              (sales and restocks) recorded by the application.
-            listItems:        Displays all items currently in the inventory, or displays message
-                              to the user that the inventory is empty if there are no items.
-            help:             Displays summaries of each command to the user, or displays a detailed
-                              instruction of a specified command.
-            exit:             Closes the application. All saved data can be found in '/data/inventory.txt`
-                              and '/data/transaction.txt'.
+            showHistory:      Displays a complete list of all past transactions as receipt cards.
+            listItems:        Displays items, with optional category filtering and price/quantity sorting.
+            help:             Displays summaries of each command to the user.
+            exit:             Closes the application.
 
             For further details on a particular command, specify it using 'help [COMMAND_NAME]'.
             """;
@@ -123,10 +117,10 @@ public class HelpCommand implements Command {
             (OR condition): filterItem description = 'Coke Can' OR description = 'Sprite Bottle'
             This displays items whose description matches either 'Coke Can' or 'Sprite Bottle'.
 
-            (Price filter — integer): filterItem price < 5
+            (Price filter -- integer): filterItem price < 5
             This displays all items with a price less than 5.
 
-            (Price filter — decimal): filterItem price > 1.50
+            (Price filter -- decimal): filterItem price > 1.50
             This displays all items with a price greater than $1.50.
             """;
     private static final String HELPTRANSACTMESSAGE = """
@@ -153,27 +147,36 @@ public class HelpCommand implements Command {
             in the inventory list, provided that it does not result in a quantity lower than 0.
             Otherwise, an error will be shown.
             """;
+    //@@author fmohamedfaras
     private static final String HELPSHOWHISTORYMESSAGE = """
             showHistory:
             Displays a complete, numbered list of all past transactions (sales and restocks)
-            recorded by the application, or displays a message to the user that no transaction
-            history is found if there are no recorded transactions.
-            
-            The display format of each transaction is as such:
-            
-            1. [Item description] | [Item quantity] | [YYYY-MM-DD] [HH-MM]
-            
-            where [YYYY-MM-DD] [HH-MM] are the transaction date and time.
-            
+            recorded by the application.
+
+            The display format of each transaction is shown as a detailed receipt:
+
+            Transaction 1
+              Date & Time : 2026-03-26 14:30
+              Type        : SALE (or RESTOCK)
+              Qty         : 5
+              Description : Coke Can
+
             Example usage: showHistory
             """;
+    //@@author fmohamedfaras
     private static final String HELPLISTITEMSMESSAGE = """
             listItems:
-            Displays the list of items and their quantities in the current inventory, or displays
-            a message to the user that inventory is empty if there are no items in the current
-            inventory.
+            Displays the list of items in the current inventory.
+            You can optionally filter the list by a specific category, and sort the output
+            by price or quantity in high or low order.
 
-            Example usage: listItems
+            Format: listItems [c/CATEGORY_NAME] [price/quantity] [high/low]
+
+            Example usages:-
+            (View all): listItems
+            (View by category): listItems c/FOOD
+            (Sort all by price): listItems price high
+            (Filter and sort): listItems c/FOOD quantity low
             """;
     private static final String HELPHELPMESSAGE = """
             help:
@@ -198,12 +201,57 @@ public class HelpCommand implements Command {
 
             Example usage: exit
             """;
+    //@@author fmohamedfaras
+    private static final String HELPADDCATEGORYMESSAGE = """
+            addCategory:
+            Creates a new custom category that items can be assigned to.
+            Category names cannot be duplicate and are case-insensitive.
+            
+            Format: addCategory c/CATEGORY_NAME
+            
+            Example usage: addCategory c/FOOD
+            """;
+    //@@author fmohamedfaras
+    private static final String HELPDELETECATEGORYMESSAGE = """
+            deleteCategory:
+            Deletes an existing custom category. 
+            Any items currently inside this category will be safely reassigned to the 
+            default [OTHERS] category. The [OTHERS] category itself cannot be deleted.
+            
+            Format: deleteCategory c/CATEGORY_NAME
+            
+            Example usage: deleteCategory c/FOOD
+            """;
+    //@@author fmohamedfaras
+    private static final String HELPEDITCATEGORYMESSAGE = """
+            editCategory:
+            Changes the category of an existing item in the inventory list based on the
+            provided list index. The target category must already exist.
+            
+            Format: editCategory INDEX c/NEW_CATEGORY
+            
+            Example usage: editCategory 1 c/FOOD
+            This moves the item at index 1 into the FOOD category.
+            """;
+    //@@author fmohamedfaras
+    private static final String HELPLISTCATEGORIESMESSAGE = """
+            listCategories:
+            Displays a numbered list of all currently available categories in the system,
+            including the default [OTHERS] category.
+            
+            Format: listCategories
+            """;
+
     private static final Map<String, String> COMMANDMESSAGES = Map.ofEntries(
             entry("addItem", HELPADDITEMMESSAGE),
             entry("deleteItem", HELPDELETEITEMMESSAGE),
             entry("editDescription", HELPEDITDESCRIPTIONMESSAGE),
             entry("editPrice", HELPEDITPRICEMESSAGE),
             entry("editQuantity", HELPEDITQUANTITYMESSAGE),
+            entry("editCategory", HELPEDITCATEGORYMESSAGE),
+            entry("addCategory", HELPADDCATEGORYMESSAGE),
+            entry("deleteCategory", HELPDELETECATEGORYMESSAGE),
+            entry("listCategories", HELPLISTCATEGORIESMESSAGE),
             entry("findItem", HELPFINDITEMMESSAGE),
             entry("filterItem", HELPFILTERITEMMESSAGE),
             entry("transact", HELPTRANSACTMESSAGE),

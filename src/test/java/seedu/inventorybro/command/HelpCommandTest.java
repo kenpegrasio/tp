@@ -40,26 +40,20 @@ class HelpCommandTest {
             Command names and their summaries:
             addItem:          Adds a new item of a given name, quantity, and price to the inventory list.
             deleteItem:       Deletes an item from the current inventory list.
-            editDescription:  Edits the description of an existing item in the inventory based on the
-                              item index. Existing description is updated to the provided input.
-            editPrice:        Edits the price of an existing item in the inventory based on the item
-                              index. Existing price is updated to the provided input.
-            editQuantity:     Edits the quantity of an existing item in the inventory based on the item
-                              index. Existing quantity is updated to the provided input.
-            findItem:         Finds an item in the current inventory list based on the keyword typed
-                              or displays message to the user that the inventory does not have item
-                              that matches keyword.
+            editDescription:  Edits the description of an existing item in the inventory.
+            editPrice:        Edits the price of an existing item in the inventory.
+            editQuantity:     Edits the quantity of an existing item in the inventory.
+            editCategory:     Moves an existing item to a different category.
+            addCategory:      Creates a new custom category.
+            deleteCategory:   Deletes a category and moves its items back to [OTHERS].
+            listCategories:   Displays all currently available categories.
+            findItem:         Finds an item in the current inventory list based on a keyword.
             filterItem:       Displays only the items that match one or more field-based conditions.
-                              Conditions can be combined using AND or OR operators.
             transact:         Updates stock quantities after a sale or restock.
-            showHistory:      Displays a complete, numbered list of all past transactions
-                              (sales and restocks) recorded by the application.
-            listItems:        Displays all items currently in the inventory, or displays message
-                              to the user that the inventory is empty if there are no items.
-            help:             Displays summaries of each command to the user, or displays a detailed
-                              instruction of a specified command.
-            exit:             Closes the application. All saved data can be found in '/data/inventory.txt`
-                              and '/data/transaction.txt'.
+            showHistory:      Displays a complete list of all past transactions as receipt cards.
+            listItems:        Displays items, with optional category filtering and price/quantity sorting.
+            help:             Displays summaries of each command to the user.
+            exit:             Closes the application.
 
             For further details on a particular command, specify it using 'help [COMMAND_NAME]'.
             """ + System.lineSeparator();
