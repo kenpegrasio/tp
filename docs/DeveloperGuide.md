@@ -51,7 +51,7 @@ The main components are:
 * `Storage`: Handles persistence of inventory and transaction data.
 
 **Figure 1: Overall Architecture / Class Diagram**  
-![InventoryBro Class Diagram](docs/diagrams/InventoryBroClassDiagram.png)
+![InventoryBro Class Diagram](diagrams/InventoryBroClassDiagram.png)
 
 ---
 
@@ -72,7 +72,7 @@ The `Ui` class acts as the bridge between the user and the internal logic.
 The `Parser` is responsible for routing user input to the correct command.
 
 **Figure 3: Parser Class Diagram**   
-![Parser Class Diagram](docs/diagrams/ParserClassDiagram.png)
+![Parser Class Diagram](diagrams/ParserClassDiagram.png)
 
 **Design highlights:**
 * Uses switch-based factory pattern
@@ -86,7 +86,7 @@ The `Parser` is responsible for routing user input to the correct command.
 The add mechanism is handled by the `AddCommand` class. It validates the input, creates a new `Item` with a name, quantity, and price, and appends it to the inventory.
 
 **Figure 4: Add Command Class Diagram**
-![Add Command Class Diagram](docs/diagrams/AddCommandClassDiagram.png)
+![Add Command Class Diagram](diagrams/AddCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. The user inputs `addItem d/Apple q/10 p/1.50`.
@@ -115,14 +115,14 @@ The add mechanism is handled by the `AddCommand` class. It validates the input, 
 8. `ui.showMessage("Added: " + newItem)` confirms the addition to the user.
 
 **Figure 5: Add Command Sequence Diagram**
-![Add Command Sequence Diagram](docs/diagrams/AddCommandSequenceDiagram.png)
+![Add Command Sequence Diagram](diagrams/AddCommandSequenceDiagram.png)
 
 ---
 
 ### Deleting an Item
 
 **Figure 6: Delete Command Class Diagram**
-![Delete Class Diagram](docs/diagrams/DeleteClassDiagram.png)
+![Delete Class Diagram](diagrams/DeleteClassDiagram.png)
 
 **Step-by-step Execution:**
 1. When the user inputs `deleteItem 1`, the `Parser` instantiates a new `DeleteCommand` with the raw input string.
@@ -133,7 +133,7 @@ The add mechanism is handled by the `AddCommand` class. It validates the input, 
 6. Finally, a success message containing the removed item's details is passed to the `Ui` to be displayed to the user.
 
 **Figure 7: Delete Command Sequence Diagram**
-![Delete Sequence Diagram](docs/diagrams/DeleteSequenceDiagram.png)
+![Delete Sequence Diagram](diagrams/DeleteSequenceDiagram.png)
 
 ---
 
@@ -142,7 +142,7 @@ The add mechanism is handled by the `AddCommand` class. It validates the input, 
 The edit-description mechanism is handled by the `EditDescriptionCommand` class. It updates the description field of an existing item in the inventory.
 
 **Figure 8: Edit Description Command Class Diagram**
-![Edit Description Command Class Diagram](docs/diagrams/EditDescriptionCommandClassDiagram.png)
+![Edit Description Command Class Diagram](diagrams/EditDescriptionCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. The user inputs `editDescription 1 d/New Name`.
@@ -157,7 +157,7 @@ The edit-description mechanism is handled by the `EditDescriptionCommand` class.
 6. If validation passes, `EditDescriptionCommand` performs the same parse: splits on the first space, then on `d/`, converts the index to zero-based, and trims the new description string. It calls `items.getItem(index)` to retrieve the target `Item`, then calls `item.setDescription(newDescription)` to update it in-place. Finally, it calls `ui.showMessage("Item description updated: " + item)` to confirm the change to the user.
 
 **Figure 9: Edit Description Command Sequence Diagram**
-![Edit Description Command Sequence Diagram](docs/diagrams/EditDescriptionCommandSequenceDiagram.png)
+![Edit Description Command Sequence Diagram](diagrams/EditDescriptionCommandSequenceDiagram.png)
 
 ---
 
@@ -166,7 +166,7 @@ The edit-description mechanism is handled by the `EditDescriptionCommand` class.
 The edit-price mechanism is handled by the `EditPriceCommand` class. It updates the price field of an existing item in the inventory.
 
 **Figure 10: Edit Price Command Class Diagram**
-![Edit Price Command Class Diagram](docs/diagrams/EditPriceCommandClassDiagram.png)
+![Edit Price Command Class Diagram](diagrams/EditPriceCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. The user inputs `editPrice INDEX p/NEW_PRICE`.
@@ -181,7 +181,7 @@ The edit-price mechanism is handled by the `EditPriceCommand` class. It updates 
 6. If validation passes, `EditPriceCommand` performs the same parse: splits on the first space, then on `p/`, converts the index to zero-based, and parses the new price as a `double`. It calls `items.getItem(index)` to retrieve the target `Item`, then calls `item.setPrice(newPrice)` to update it in-place. Finally, it calls `ui.showMessage("Item price updated: " + item)` to confirm the change to the user.
 
 **Figure 11: Edit Price Command Sequence Diagram**
-![Edit Price Command Sequence Diagram](docs/diagrams/EditPriceCommandSequenceDiagram.png)
+![Edit Price Command Sequence Diagram](diagrams/EditPriceCommandSequenceDiagram.png)
 
 ---
 
@@ -190,7 +190,7 @@ The edit-price mechanism is handled by the `EditPriceCommand` class. It updates 
 The edit-quantity mechanism is handled by the `EditQuantityCommand` class. It updates the quantity field of an existing item in the inventory.
 
 **Figure 12: Edit Quantity Command Class Diagram**
-![Edit Quantity Command Class Diagram](docs/diagrams/EditQuantityCommandClassDiagram.png)
+![Edit Quantity Command Class Diagram](diagrams/EditQuantityCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. The user inputs `editQuantity INDEX q/NEW_QUANTITY`.
@@ -205,14 +205,14 @@ The edit-quantity mechanism is handled by the `EditQuantityCommand` class. It up
 6. If validation passes, `EditQuantityCommand` performs the same parse: splits on the first space, then on `q/`, converts the index to zero-based, and parses the new quantity as an integer. It calls `items.getItem(index)` to retrieve the target `Item`, then calls `item.setQuantity(newQuantity)` to update it in-place. Finally, it calls `ui.showMessage("Item quantity updated: " + item)` to confirm the change to the user.
 
 **Figure 13: Edit Quantity Command Sequence Diagram**
-![Edit Quantity Command Sequence Diagram](docs/diagrams/EditQuantityCommandSequenceDiagram.png)
+![Edit Quantity Command Sequence Diagram](diagrams/EditQuantityCommandSequenceDiagram.png)
 
 ---
 
 ### Finding an Item
 
 **Figure 14: Find Command Class Diagram**
-![Find Class Diagram](docs/diagrams/FindClassDiagram.png)
+![Find Class Diagram](diagrams/FindClassDiagram.png)
 
 **Step-by-step Execution:**
 1. When the user inputs `findItem keyword`, the `Parser` instantiates a new `FindCommand`.
@@ -222,7 +222,7 @@ The edit-quantity mechanism is handled by the `EditQuantityCommand` class. It up
 5. Matching items are immediately passed to the `Ui` to be displayed. If no items match by the end of the loop, a "not found" message is displayed instead.
 
 **Figure 15: Find Command Sequence Diagram**
-![Find Sequence Diagram](docs/diagrams/FindSequenceDiagram.png)
+![Find Sequence Diagram](diagrams/FindSequenceDiagram.png)
 
 ---
 
@@ -231,7 +231,7 @@ The edit-quantity mechanism is handled by the `EditQuantityCommand` class. It up
 The filter mechanism is handled by the `FilterCommand` class. It evaluates one or more field-operator-value predicates — joined by `AND` / `OR` — against every item in the inventory and displays all matching results.
 
 **Figure 16: Filter Command Class Diagram**
-![Filter Command Class Diagram](docs/diagrams/FilterCommandClassDiagram.png)
+![Filter Command Class Diagram](diagrams/FilterCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. The user inputs a command such as `filterItem quantity > 10` or `filterItem description = 'Apple' OR quantity < 5`. The `Parser` instantiates a new `FilterCommand` with the raw input string.
@@ -245,7 +245,7 @@ The filter mechanism is handled by the `FilterCommand` class. It evaluates one o
 9. If no items match, `Ui` displays `"No items match the given filter."`. Otherwise it displays `"Here are the filtered items:"` followed by a numbered list of matching items in their original inventory order.
 
 **Figure 17: Filter Command Sequence Diagram**
-![Filter Command Sequence Diagram](docs/diagrams/FilterCommandSequenceDiagram.png)
+![Filter Command Sequence Diagram](diagrams/FilterCommandSequenceDiagram.png)
 
 ---
 
@@ -254,7 +254,7 @@ The filter mechanism is handled by the `FilterCommand` class. It evaluates one o
 The transact mechanism is handled by the `TransactCommand` class. It updates an item's quantity and records the transaction.
 
 **Figure 18: Transact Command Class Diagram**
-![Transact Class Diagram](docs/diagrams/TransactCommandClassDiagram.png)
+![Transact Class Diagram](diagrams/TransactCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. User inputs `transact 1 q/-5`
@@ -270,7 +270,7 @@ The transact mechanism is handled by the `TransactCommand` class. It updates an 
 9. UI displays updated quantity
 
 **Figure 19: Transact Command Sequence Diagram**
-![Transact Sequence Diagram](docs/diagrams/TransactCommandSequenceDiagram.png)
+![Transact Sequence Diagram](diagrams/TransactCommandSequenceDiagram.png)
 
 ---
 
@@ -279,7 +279,7 @@ The transact mechanism is handled by the `TransactCommand` class. It updates an 
 The `ShowTransactionHistoryCommand` retrieves and displays all past transactions.
 
 **Figure 20: Show History Class Diagram**
-![Show History Class Diagram](docs/diagrams/ShowTransactionHistoryCommandClassDiagram.png)
+![Show History Class Diagram](diagrams/ShowTransactionHistoryCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. User inputs `showHistory`
@@ -290,7 +290,7 @@ The `ShowTransactionHistoryCommand` retrieves and displays all past transactions
 6. Otherwise → iterate and print all entries
 
 **Figure 21: Show History Sequence Diagram**
-![Show History Sequence Diagram](/docs/diagrams/ShowTransactionHistoryCommandSequenceDiagram.png)
+![Show History Sequence Diagram](diagrams/ShowTransactionHistoryCommandSequenceDiagram.png)
 
 ---
 
@@ -299,7 +299,7 @@ The `ShowTransactionHistoryCommand` retrieves and displays all past transactions
 The `ListCommand` class handles the mechanism of displaying the list of all items in the inventory to the user in the default or sorted order.
 
 **Figure 22: List Command Class Diagram**
-![Show List Command Class Diagram](docs/diagrams/ListCommandClassDiagram.png)
+![Show List Command Class Diagram](diagrams/ListCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. When the user inputs `listItems` or `listItems price high`, the parser instantiates a new `ListCommand` with the raw input string.
@@ -311,14 +311,14 @@ The `ListCommand` class handles the mechanism of displaying the list of all item
 7. Else, it passes the default order of the list of items to the `ui` to display to the user.
 
 **Figure 23: List Command Sequence Diagram**
-![List Command Sequence Diagram](docs/diagrams/ListCommandSequenceDiagram.png)
+![List Command Sequence Diagram](diagrams/ListCommandSequenceDiagram.png)
 
 ### Viewing help messages of commands
 
 The `HelpCommand` class handles the mechanism of displaying all command names and their summaries or detailed instructions of a particular command indicated by the user.
 
 **Figure 24: Help Command Sequence Diagram**
-![Show Help Command Class Diagram](/docs/diagrams/HelpCommandClassDiagram.png)
+![Show Help Command Class Diagram](diagrams/HelpCommandClassDiagram.png)
 
 **Step-by-step Execution:**
 1. The user inputs `help` or specifies a particular command and inputs `help [command_name]`.
@@ -330,7 +330,7 @@ The `HelpCommand` class handles the mechanism of displaying all command names an
     * If no, which means the user input is only `help`, then the command names and their summaries are passed to the `ui` to display to the user.
 
 **Figure 25: Help Command Sequence Diagram**
-![Help Command Sequence Diagram](docs/diagrams/HelpCommandSequenceDiagram.png)
+![Help Command Sequence Diagram](diagrams/HelpCommandSequenceDiagram.png)
 
 ---
 
@@ -434,7 +434,7 @@ itemName | quantityChange | timestamp
     * Return `null` (skipped)
 
 **Figure 28: TransactionStorage Sequence Diagram**
-![TransactionStorage Sequence Diagram](docs/diagrams/TransactionStorageSequenceDiagram.png)
+![TransactionStorage Sequence Diagram](diagrams/TransactionStorageSequenceDiagram.png)
 
 ---
 
