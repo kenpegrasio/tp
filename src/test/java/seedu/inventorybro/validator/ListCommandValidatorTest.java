@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.inventorybro.Category;
 import seedu.inventorybro.CategoryList;
 import seedu.inventorybro.Item;
 import seedu.inventorybro.ItemList;
@@ -23,12 +24,19 @@ class ListCommandValidatorTest {
     @Test
     void validate_validInput_noException() {
         ItemList items = new ItemList();
+        categories.addCategory(new Category("Fruits"));
+        categories.addCategory(new Category("Bread"));
 
         assertDoesNotThrow(() -> new ListCommandValidator("listItems").validate(items, categories));
         assertDoesNotThrow(() -> new ListCommandValidator("listItems quantity high").validate(items, categories));
         assertDoesNotThrow(() -> new ListCommandValidator("listItems quantity low").validate(items, categories));
         assertDoesNotThrow(() -> new ListCommandValidator("listItems price high").validate(items, categories));
         assertDoesNotThrow(() -> new ListCommandValidator("listItems price low").validate(items, categories));
+        assertDoesNotThrow(() -> new ListCommandValidator("listItems c/Fruits price low").validate(items,
+                categories));
+        assertDoesNotThrow(() -> new ListCommandValidator("listItems c/Bread quantity high").validate(items,
+                categories));
+
     }
 
     /**
@@ -81,7 +89,7 @@ class ListCommandValidatorTest {
     @Test
     void validate_wrongCase_throwsException() {
         ItemList items = new ItemList();
-        items.addItem(new Item("Apple", 50, 0.0, categories.getCategory("Others")));
+        items.addItem(new Item("Apple", 50, 1.2, categories.getCategory("Others")));
 
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class,

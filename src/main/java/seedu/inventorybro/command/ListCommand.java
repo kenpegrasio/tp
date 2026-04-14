@@ -91,9 +91,12 @@ public class ListCommand implements Command {
                 + (order.isEmpty() ? "" : (order.equals("high") ? " in decreasing order" : " in increasing order"))
                 + ":");
 
+        int lowStockQuantity = 5;
         for (int i = 0; i < displayList.size(); i++) {
             listIndex = i + 1;
-            ui.showMessage(listIndex + ". " + displayList.get(i));
+            Item item = displayList.get(i);
+            String lowStock = item.getQuantity() <= lowStockQuantity ? " [LOW STOCK]" : "";
+            ui.showMessage(listIndex + ". " + item + lowStock);
         }
 
         assert listIndex == displayList.size() : "List index should be equal to total number " +

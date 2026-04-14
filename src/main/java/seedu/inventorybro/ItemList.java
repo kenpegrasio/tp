@@ -85,7 +85,7 @@ public class ItemList {
     public ArrayList<Item> getItems() {
         return items;
     }
-    //@@author
+    //@@author adbsw
 
     public ArrayList<Item> getSortedItems(String field, String order) {
         ArrayList<Item> sortedItems = null;
