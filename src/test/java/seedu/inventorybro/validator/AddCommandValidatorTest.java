@@ -239,6 +239,17 @@ class AddCommandValidatorTest {
     }
 
     /**
+     * Verifies that a name containing a single quote is rejected.
+     */
+    @Test
+    void validate_nameWithSingleQuote_throwsException() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new AddCommandValidator("addItem d/Coke's Can q/10 p/1.50 c/Others").validate(items, categories)
+        );
+    }
+
+    /**
      * Verifies that passing null as input to the constructor triggers an AssertionError.
      */
     @Test

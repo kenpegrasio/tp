@@ -58,6 +58,10 @@ public class AddCommandValidator implements Validator {
             throw new IllegalArgumentException("Item name cannot be empty.");
         }
 
+        if (name.contains("'")) {
+            throw new IllegalArgumentException("Item description cannot contain single quotes (').");
+        }
+
         new DuplicateItemValidator(name).validate(items, categories);
 
         int quantity = Integer.parseInt(matcher.group(2));

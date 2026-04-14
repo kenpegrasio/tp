@@ -75,6 +75,7 @@ Adds a new product with a name, quantity, price, and an optional category into t
 * Quantity must be `0` or greater — negative values are rejected.
 * Price must be at least `0.01` when rounded to 2 decimal places (e.g. `p/0.001` is rejected).
 * Name cannot be empty or whitespace only.
+* Name cannot contain single quotes (`'`).
 * An item with the same name (case-insensitive) cannot be added twice.
 * If a category is specified, that category **must already exist** (see `addCategory`).
 
@@ -97,6 +98,7 @@ Updates the description of an existing item in the inventory.
   ```text
   Item description updated: [BEVERAGES] Sprite Bottle (Quantity: 50, Price: $1.50)
   ```
+* Description cannot contain single quotes (`'`).
   ### 4. Editing an Item's Price: `editPrice`
 Updates the price of an existing item in the inventory.
 
