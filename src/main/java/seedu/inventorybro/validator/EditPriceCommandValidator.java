@@ -36,8 +36,8 @@ public class EditPriceCommandValidator implements Validator {
             }
 
             double newPrice = Double.parseDouble(parts[1].trim());
-            if (newPrice < 0) {
-                throw new IllegalArgumentException("Price cannot be negative.");
+            if (Math.round(newPrice * 100) <= 0) {
+                throw new IllegalArgumentException("Price must be at least 0.01 when rounded.");
             }
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Index must be a number and price must be a valid decimal.");

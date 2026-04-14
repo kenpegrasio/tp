@@ -103,6 +103,7 @@ Updates the price of an existing item in the inventory.
   ```text
   Item price updated: Coke Can (Quantity: 50, Price: $2.50)
   ```
+* Price can be given with any number of decimal places, but it is rounded to 2 decimal places internally. The rounded value must be at least `0.01` (e.g. `p/0.001` is rejected, but `p/0.005` is accepted as it rounds to `0.01`).
 
 ### 5. Editing an Item's Quantity: `editQuantity`
 Updates the quantity of an existing item in the inventory.
