@@ -1,38 +1,106 @@
 @startuml
-'https://plantuml.com/sequence-diagram
-
-autonumber
-@startuml
 skinparam monochrome true
 skinparam shadowing false
-hide circle
 hide footbox
 
-actor User
-participant Parser
-participant TransactCommand
-participant TransactCommandValidator
-participant ItemList
-participant Item
-participant TransactionStorage
-participant Ui
+box "Logic" #LightBlue
+participant "<<class>>\nParser" as Parser
+participant "t:TransactCommand" as TransactCommand
+participant "v:TransactCommandValidator" as TransactCommandValidator
+end box
 
-User -> Parser: "transact 1 q/-5"
-Parser -> TransactCommand: create(input)
+box "Data" #LightYellow
+participant "items:ItemList" as ItemList
+participant "item:Item" as Item
+end box
 
-TransactCommand -> TransactCommandValidator: validate(items)
+box "Storage" #LightCyan
+participant "ts:TransactionStorage" as TransactionStorage
+end box
+
+box "UI" #LightGreen
+participant "ui:Ui" as Ui
+end box
+
+-> Parser : parse("transact 1 q/-5", items, categories, ui)
+activate Parser
+
+create TransactCommand
+Parser -> TransactCommand : new TransactCommand(input, storage)
+activate TransactCommand
+TransactCommand --> Parser : t
+deactivate TransactCommand
+
+Parser -> TransactCommand : execute(items, categories, ui)
+activate TransactCommand
+
+create TransactCommandValidator
+TransactCommand -> TransactCommandValidator : new TransactCommandValidator(input)
+activate TransactCommandValidator
+TransactCommandValidator --> TransactCommand : v
+deactivate TransactCommandValidator
+
+TransactCommand -> TransactCommandValidator : validate(items, categories)
+activate TransactCommandValidator
+note right of TransactCommandValidator
+  Validates format: transact INDEX q/CHANGE
+  Checks index bounds
+  Checks quantity won't be negative
+end note
 TransactCommandValidator --> TransactCommand
+deactivate TransactCommandValidator
+TransactCommandValidator -[hidden]-> TransactCommand
+destroy TransactCommandValidator
 
-TransactCommand -> TransactCommand: parse input\n(index, change)
+note right of TransactCommand
+  Parse input:
+  index = 0 (1-based to 0-based)
+  qtyChange = -5
+end note
 
-TransactCommand -> ItemList: getItem(index)
-ItemList --> TransactCommand: Item
+TransactCommand -> ItemList : getItem(index)
+activate ItemList
+ItemList --> TransactCommand : item
+deactivate ItemList
 
-TransactCommand -> Item: getQuantity()
-TransactCommand -> Item: setQuantity(newQuantity)
+TransactCommand -> Item : getQuantity()
+activate Item
+Item --> TransactCommand : currentQuantity
+deactivate Item
 
-TransactCommand -> TransactionStorage: saveHistory(description, change)
+note right of TransactCommand
+  newQuantity = currentQuantity + qtyChange
+end note
 
-TransactCommand -> Ui: showMessage(result)
+TransactCommand -> Item : setQuantity(newQuantity)
+activate Item
+Item --> TransactCommand
+deactivate Item
+
+TransactCommand -> Item : getDescription()
+activate Item
+Item --> TransactCommand : itemName
+deactivate Item
+
+TransactCommand -> TransactionStorage : saveHistory(itemName, qtyChange)
+activate TransactionStorage
+note right of TransactionStorage
+  Records: itemName | qtyChange | timestamp
+end note
+TransactionStorage --> TransactCommand
+deactivate TransactionStorage
+
+TransactCommand -> Ui : showMessage(action + " successful!")
+activate Ui
+Ui --> TransactCommand
+deactivate Ui
+
+TransactCommand --> Parser
+deactivate TransactCommand
+TransactCommand -[hidden]-> Parser
+destroy TransactCommand
+
+<-- Parser
+deactivate Parser
 
 @enduml
