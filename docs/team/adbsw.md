@@ -5,8 +5,7 @@
 ### Overview
 
 InventoryBro is an inventory management tracking application interacted via a CLI. It is designed for mini-mart or 
-nook and corner shopowners who are looking to have a way to manage and track their inventory of goods that they sell. 
-It is written in Java.
+nook and corner shopowners who are looking to have a way to manage and track their inventory of goods that they sell and is written in Java.
 
 ### Summary of Contributions
 

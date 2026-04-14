@@ -32,8 +32,10 @@ class ListCommandValidatorTest {
         assertDoesNotThrow(() -> new ListCommandValidator("listItems quantity low").validate(items, categories));
         assertDoesNotThrow(() -> new ListCommandValidator("listItems price high").validate(items, categories));
         assertDoesNotThrow(() -> new ListCommandValidator("listItems price low").validate(items, categories));
-        assertDoesNotThrow(() -> new ListCommandValidator("listItems c/Fruits price low").validate(items, categories));
-        assertDoesNotThrow(() -> new ListCommandValidator("listItems c/Bread quantity high").validate(items, categories));
+        assertDoesNotThrow(() -> new ListCommandValidator("listItems c/Fruits price low").validate(items,
+                categories));
+        assertDoesNotThrow(() -> new ListCommandValidator("listItems c/Bread quantity high").validate(items,
+                categories));
 
     }
 
