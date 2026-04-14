@@ -510,22 +510,26 @@ accuracy (clear, structured output)
 
 ## User Stories
 
-| Version | As a ...    | I want to ...                                     | So that I can ...                                            |
-|---------|-------------|---------------------------------------------------|--------------------------------------------------------------|
-| v1.0    | new user    | see usage instructions                            | refer to them when I forget how to use the application       |
-| v1.0    | store owner | add items                                         | keep track of new products in my inventory                   |
-| v1.0    | store owner | delete items                                      | remove products that are no longer sold                      |
-| v1.0    | store owner | edit item details                                 | update product name or quantity when needed                  |
-| v1.0    | store owner | view all items                                    | know information of products I currently have                |
-| v1.0    | store owner | update item quantity via transactions             | record sales or restocking accurately                        |
-| v1.0    | store owner | exit the application                              | safely close the program after use                           |
-| v2.0    | store owner | find items by keyword                             | locate items quickly without scanning the full list          |
-| v2.0    | store owner | view transaction history                          | review past transactions for tracking and reference          |
-| v2.0    | store owner | have my inventory automatically saved             | avoid losing data when I close the application               |
-| v2.0    | store owner | load previously saved inventory                   | continue managing my shop from where I left off              |
-| v2.0    | store owner | view a sorted list of items                       | quickly view which items have, for example, lower quantities |
-| v2.0    | store owner | view detailed instructions for a specific command | learn how to use a command correctly                         |
-| v2.0    | store owner | filter items by attribute and condition           | quickly find items that meet specific criteria (e.g. low stock) |
+| Version | As a ...    | I want to ...                                                             | So that I can ...                                                       |
+|---------|-------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| v1.0    | new user    | see usage instructions                                                    | refer to them when I forget how to use the application                  |
+| v1.0    | store owner | add items                                                                 | keep track of new products in my inventory                              |
+| v1.0    | store owner | delete items                                                              | remove products that are no longer sold                                 |
+| v1.0    | store owner | edit item details                                                         | update product name or quantity when needed                             |
+| v1.0    | store owner | view all items                                                            | know information of products I currently have                           |
+| v1.0    | store owner | update item quantity via transactions                                     | record sales or restocking accurately                                   |
+| v1.0    | store owner | exit the application                                                      | safely close the program after use                                      |
+| v2.0    | store owner | find items by keyword                                                     | locate items quickly without scanning the full list                     |
+| v2.0    | store owner | view transaction history                                                  | review past transactions for tracking and reference                     |
+| v2.0    | store owner | have my inventory automatically saved                                     | avoid losing data when I close the application                          |
+| v2.0    | store owner | load previously saved inventory                                           | continue managing my shop from where I left off                         |
+| v2.0    | store owner | view a sorted list of items                                               | quickly view which items have, for example, lower quantities            |
+| v2.0    | store owner | view detailed instructions for a specific command                         | learn how to use a command correctly                                    |
+| v2.0    | store owner | filter items by attribute and condition                                   | quickly find items that meet specific criteria (e.g. low stock)         |
+| v2.1    | store owner | categorise my inventory items in order to group similar products together | view my items easily and locate for similar products in my list         |
+| v2.1    | store owner | edit categories of my inventory items                                     | edit an item's category if I mistakenly placed it in the wrong category |
+| v2.1    | store owner | view a list of the categories of my inventory items                       | see existing categories and categories that I do not currently have     | 
+
 
 ---
 

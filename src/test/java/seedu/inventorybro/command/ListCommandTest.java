@@ -108,4 +108,52 @@ class ListCommandTest {
 
         assertEquals(expectedOutput, outContent.toString());
     }
+
+    @Test
+    void execute_validUserInputPriceHighOrder_success() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Item 1", 52, 3.0, categories.getCategory("Others")));
+        items.addItem(new Item("Item 2", 17, 5.5, categories.getCategory("Others")));
+        items.addItem(new Item("Item 3", 23, 1.2, categories.getCategory("Others")));
+        items.addItem(new Item("Item 4", 165, 4.9, categories.getCategory("Others")));
+        items.addItem(new Item("Item 5", 29, 2.5, categories.getCategory("Others")));
+        items.addItem(new Item("Item 6", 9, 3.2, categories.getCategory("Others")));
+
+        new ListCommand("listItems price high").execute(items, categories, ui);
+
+        String expectedOutput = "Here are your current inventory items by price in decreasing order:"
+                + System.lineSeparator()
+                + "1. [OTHERS] Item 2 (Quantity: 17, Price: $5.50)" + System.lineSeparator()
+                + "2. [OTHERS] Item 4 (Quantity: 165, Price: $4.90)" + System.lineSeparator()
+                + "3. [OTHERS] Item 6 (Quantity: 9, Price: $3.20)" + System.lineSeparator()
+                + "4. [OTHERS] Item 1 (Quantity: 52, Price: $3.00)" + System.lineSeparator()
+                + "5. [OTHERS] Item 5 (Quantity: 29, Price: $2.50)" + System.lineSeparator()
+                + "6. [OTHERS] Item 3 (Quantity: 23, Price: $1.20)" + System.lineSeparator();
+
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    @Test
+    void execute_validUserInputPriceLowOrder_success() {
+        ItemList items = new ItemList();
+        items.addItem(new Item("Item 1", 52, 3.0, categories.getCategory("Others")));
+        items.addItem(new Item("Item 2", 17, 5.5, categories.getCategory("Others")));
+        items.addItem(new Item("Item 3", 23, 1.2, categories.getCategory("Others")));
+        items.addItem(new Item("Item 4", 165, 4.9, categories.getCategory("Others")));
+        items.addItem(new Item("Item 5", 29, 2.5, categories.getCategory("Others")));
+        items.addItem(new Item("Item 6", 9, 3.2, categories.getCategory("Others")));
+
+        new ListCommand("listItems price low").execute(items, categories, ui);
+
+        String expectedOutput = "Here are your current inventory items by price in increasing order:"
+                + System.lineSeparator()
+                + "1. [OTHERS] Item 3 (Quantity: 23, Price: $1.20)" + System.lineSeparator()
+                + "2. [OTHERS] Item 5 (Quantity: 29, Price: $2.50)" + System.lineSeparator()
+                + "3. [OTHERS] Item 1 (Quantity: 52, Price: $3.00)" + System.lineSeparator()
+                + "4. [OTHERS] Item 6 (Quantity: 9, Price: $3.20)" + System.lineSeparator()
+                + "5. [OTHERS] Item 4 (Quantity: 165, Price: $4.90)" + System.lineSeparator()
+                + "6. [OTHERS] Item 2 (Quantity: 17, Price: $5.50)" + System.lineSeparator();
+
+        assertEquals(expectedOutput, outContent.toString());
+    }
 }

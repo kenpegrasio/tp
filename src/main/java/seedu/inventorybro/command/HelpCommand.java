@@ -178,6 +178,7 @@ public class HelpCommand implements Command {
             (Sort all by price): listItems price high
             (Filter and sort): listItems c/FOOD quantity low
             """;
+    //@@author adbsw
     private static final String HELPHELPMESSAGE = """
             help:
             Displays the command names of the application and their summaries, or a command can
@@ -241,7 +242,7 @@ public class HelpCommand implements Command {
             
             Format: listCategories
             """;
-
+    //@@author adbsw
     private static final Map<String, String> COMMANDMESSAGES = Map.ofEntries(
             entry("addItem", HELPADDITEMMESSAGE),
             entry("deleteItem", HELPDELETEITEMMESSAGE),
